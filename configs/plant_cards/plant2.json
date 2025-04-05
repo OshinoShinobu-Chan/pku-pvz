@@ -1,5 +1,5 @@
 {
-  "size": [80, 80],
+  "size": [80, 120],
   "image_paths": {
     "normal": "./resources/plant_cards/plant2.png",
     "focus": "./resources/plant_cards/plant2_dark.png",

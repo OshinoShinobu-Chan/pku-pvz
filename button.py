@@ -71,6 +71,8 @@ def click_end_game(status):
     status.static_items.clear()
     status.executors.append(GameBackground())
     status.executors.append(Start())
+    status.selected_plants = [None for _ in range(8)]
+    status.selected_plants_cnt = 0
 
 
 class Button(Item):

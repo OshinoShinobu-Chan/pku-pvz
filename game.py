@@ -27,7 +27,7 @@ class GameStart:
         from button import click_start_game, click_end_game
         # description text
         status.static_items["plant_description"] = Text(pos=[status.screen.get_width() / 4,
-                                                             status.screen.get_height() / 2],
+                                                             status.screen.get_height() * 2 / 5],
                                                     json_path="./configs/texts/plant-description.json",
                                                     name="plant-description",
                                                     text="在左侧卡片上左键选择植物，\n在上面卡片上左键取消选择",
@@ -36,9 +36,9 @@ class GameStart:
         with open("./configs/plant_cards/plant_cards.json", "r", encoding='utf-8') as f:
             plant_cards = json.load(f)
         for (i, plant_card) in enumerate(plant_cards.values()):
-            index = [i // 4, i % 4]
-            pos = [status.screen.get_width() / 4 + ((index[1] - 2) * 2 + 1) * 40,
-                   status.screen.get_height() / 2 + (index[0] * 2 + 1) * 40]
+            index = [i // 6, i % 6]
+            pos = [status.screen.get_width() / 6 + ((index[1] - 2) * 2 + 1) * 40,
+                   status.screen.get_height() * 2 / 5 + (index[0] * 2 + 1) * 60]
             status.items[plant_card["name"] + "_card"] = (Button(pos=pos, 
                                        on_click=click_plant_card_wrapper(plant_card["name"], plant_card["json_path"]),
                                        json_path=plant_card["json_path"],
@@ -47,14 +47,14 @@ class GameStart:
                                        lose_fucus=lose_focus_card,
                                        check_enable=plant_card_check_enable))
         # start button
-        status.items["start-button"] = Button(pos=[status.screen.get_width() / 2, 
-                                        status.screen.get_height() / 2 - 60, 1],
+        status.items["start-button"] = Button(pos=[status.screen.get_width() / 4, 
+                                        status.screen.get_height() - 60, 1],
                     json_path="./configs/buttons/start_button.json",
                     on_click=click_start_game,
                     name="start-button")
         # end button
-        status.items["end-button"] = Button(pos=[status.screen.get_width() / 2, 
-                                        status.screen.get_height() / 2 + 60, 1],
+        status.items["end-button"] = Button(pos=[status.screen.get_width() * 3 / 4, 
+                                        status.screen.get_height() - 60, 1],
                     json_path="./configs/buttons/end_button.json",
                     on_click=click_end_game,
                     name="end-button")
