@@ -1,0 +1,17 @@
+[project]
+name = "pkupvz"
+version = "0.1.0"
+description = "Plant versus zombie with plants from PKU."
+authors = [
+    {name = "彭子隽",email = "2200012909@stu.pku.edu.cn"}
+]
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "pygame (>=2.6.1,<3.0.0)",
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

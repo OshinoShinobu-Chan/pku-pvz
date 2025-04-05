@@ -1,0 +1,8 @@
+{
+  "size": [400, 80],
+  "image_paths": {
+    "normal": "./resources/buttons/start_button.png",
+    "focus": "./resources/buttons/start_button_focus.png",
+    "click": "./resources/buttons/start_button_focus.png"
+  }
+}

@@ -1,0 +1,42 @@
+{
+    "plant1": {
+        "name": "plant1",
+        "description": "这里是plant1的介绍",
+        "json_path": "./configs/plant_cards/plant1.json"
+    },
+    "plant2": {
+        "name": "plant2",
+        "description": "这里是plant2的介绍",
+        "json_path": "./configs/plant_cards/plant2.json"
+    },
+    "plant3": {
+        "name": "plant3",
+        "description": "这里是plant3的介绍",
+        "json_path": "./configs/plant_cards/plant3.json"
+    },
+    "plant4": {
+        "name": "plant4",
+        "description": "这里是plant4的介绍",
+        "json_path": "./configs/plant_cards/plant4.json"
+    },
+    "plant5": {
+        "name": "plant5",
+        "description": "这里是plant5的介绍",
+        "json_path": "./configs/plant_cards/plant5.json"
+    },
+    "plant6": {
+        "name": "plant6",
+        "description": "这里是plant6的介绍",
+        "json_path": "./configs/plant_cards/plant6.json"
+    },
+    "plant7": {
+        "name": "plant7",
+        "description": "这里是plant7的介绍",
+        "json_path": "./configs/plant_cards/plant7.json"
+    },
+    "plant8": {
+        "name": "plant8",
+        "description": "这里是plant8的介绍",
+        "json_path": "./configs/plant_cards/plant8.json"
+    }
+}

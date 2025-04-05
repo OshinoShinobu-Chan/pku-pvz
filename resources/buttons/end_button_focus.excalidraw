@@ -1,0 +1,86 @@
+{
+  "type": "excalidraw",
+  "version": 2,
+  "source": "https://marketplace.visualstudio.com/items?itemName=pomdtr.excalidraw-editor",
+  "elements": [
+    {
+      "id": "6RcpmnTcTRAHfVXKZtJdG",
+      "type": "rectangle",
+      "x": 242.50699615478516,
+      "y": 52.574629494791765,
+      "width": 373.0106964111328,
+      "height": 68.46186828613281,
+      "angle": 0,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "frameId": null,
+      "index": "a0",
+      "roundness": {
+        "type": 3
+      },
+      "seed": 126989480,
+      "version": 110,
+      "versionNonce": 662473128,
+      "isDeleted": false,
+      "boundElements": [
+        {
+          "type": "text",
+          "id": "EssmMbPZpFxY9qSluAloL"
+        }
+      ],
+      "updated": 1743757800732,
+      "link": null,
+      "locked": false
+    },
+    {
+      "id": "EssmMbPZpFxY9qSluAloL",
+      "type": "text",
+      "x": 408.0623550415039,
+      "y": 74.30556363785817,
+      "width": 41.89997863769531,
+      "height": 25,
+      "angle": 0,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "frameId": null,
+      "index": "a1",
+      "roundness": null,
+      "seed": 935649192,
+      "version": 35,
+      "versionNonce": 144335272,
+      "isDeleted": false,
+      "boundElements": [],
+      "updated": 1743757810564,
+      "link": null,
+      "locked": false,
+      "text": "Exit",
+      "fontSize": 20,
+      "fontFamily": 5,
+      "textAlign": "center",
+      "verticalAlign": "middle",
+      "containerId": "6RcpmnTcTRAHfVXKZtJdG",
+      "originalText": "Exit",
+      "autoResize": true,
+      "lineHeight": 1.25
+    }
+  ],
+  "appState": {
+    "gridSize": 20,
+    "gridStep": 5,
+    "gridModeEnabled": false,
+    "viewBackgroundColor": "#ffffff"
+  },
+  "files": {}
+}
