@@ -25,7 +25,7 @@ jobs:
       run: |
         pyinstaller main.spec
     - name: Upload artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: windows-executable
         path: dist/
@@ -49,7 +49,7 @@ jobs:
       run: |
         pyinstaller main.spec
     - name: Upload artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: macos-executable
         path: dist/
@@ -59,12 +59,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Download Windows artifact
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: windows-executable
         path: windows-artifact
     - name: Download MacOS artifact
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: macos-executable
         path: macos-artifact
