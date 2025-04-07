@@ -17,6 +17,7 @@ status.executors.append(Start())
 status.executors.append(GameBackground())
 
 while status.running:
+   
     # poll for events
     # pygame.QUIT event means the user clicked X to close your window
     events = pygame.event.get()
@@ -24,6 +25,33 @@ while status.running:
         if event.type == pygame.QUIT:
             status.running = False
     status.mouse_pos = pygame.mouse.get_pos()
+    screen.fill((0, 0, 0))
+
+    if status.pause:
+        for item in status.pause_items:
+            item.update(status, event)
+            item.draw(screen)
+
+        for item in status.static_items.values():
+            item.draw(screen)
+
+        for item in status.backgrounds:
+            item.draw(screen)
+        
+        for item in status.items.values():
+            item.draw(screen)
+        
+        # flip() the display to put your work on screen
+        pygame.display.update()
+
+        # limits FPS to 60
+        real_time = clock.tick(60)
+        if status.global_ticks % 10 == 0:
+            status.tps = 1000 / real_time
+
+        # update the event
+        pygame.event.pump()
+        continue
 
     for b in status.backgrounds:
         b.draw(screen)
@@ -56,17 +84,20 @@ while status.running:
     # remove items
     for item in remove_items:
         del status.items[item]
-
+    
     # remove executors
     new_executors = [excutor for (i, excutor) in enumerate(status.executors)
                         if i not in set(remove_executors)]
     status.executors = new_executors
 
     # flip() the display to put your work on screen
-    pygame.display.update()
+    pygame.display.flip()
 
     # limits FPS to 60
-    clock.tick(30)
+    real_time = clock.tick(60)
+    status.global_ticks += 1
+    if status.global_ticks % 10 == 0:
+        status.tps = 1000 / real_time
 
     # update the event
     pygame.event.pump()

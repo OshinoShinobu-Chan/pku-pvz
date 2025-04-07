@@ -1,0 +1,6 @@
+{
+    "size": [50, 120],
+    "image_paths": {
+        "normal": "./resources/zombies/zombie2.png"
+    }
+}

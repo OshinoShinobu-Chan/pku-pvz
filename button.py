@@ -2,8 +2,10 @@ import pygame
 from item import Item
 import json
 from status import GamePhase
-from game import GameBackground, GameStart
+from game import GameBackground, GameStart, GameCountDown
 from start import Start
+from plant import Plant
+from utils import resource_path
 
 def click_start(status):
     status.game_phase = GamePhase.GAME_START
@@ -62,7 +64,7 @@ def click_start_game(status):
     status.backgrounds.clear()
     status.static_items.clear()
     status.executors.append(GameBackground())
-    # status.executors.append(Game())
+    status.executors.append(GameCountDown(status.global_ticks))
 
 def click_end_game(status):
     status.game_phase = GamePhase.START
@@ -74,20 +76,39 @@ def click_end_game(status):
     status.selected_plants = [None for _ in range(8)]
     status.selected_plants_cnt = 0
 
+def no_action(status):
+    pass
+
+def focus_showing_zombie_wrapper(name):
+    def focus_showing_zombie(status):
+        status.static_items["plant_description"].set_text(status.zombie_descriptions[name])
+    return focus_showing_zombie
+
+def check_start_game_enble(status, event):
+    return status.selected_plants_cnt != 0
+
+def click_plant_card_slot_wrapper(index, init_pos):
+    def click_plant_card_clot(status, event):
+        plant_name = status.selected_plants[index]
+        # status.items[plant_name + str(status.plant_id)] = Plant(
+        #     pos=init_pos,
+            
+        # )
+
 
 class Button(Item):
     def __init__(self, pos, on_click, json_path, name, on_focus=None, lose_fucus=None, check_enable=None):
         super().__init__(pos, json_path, name)
-        with open(json_path, "r") as f:
+        with open(resource_path(json_path), "r") as f:
             config = json.load(f)
-        images = {k: pygame.image.load(config["image_paths"][k]).convert() for k in config["image_paths"].keys()}
+        images = {k: pygame.image.load(resource_path(config["image_paths"][k])).convert() for k in config["image_paths"].keys()}
         self.images = {k: pygame.transform.smoothscale(images[k], self.size) for k in images.keys()}
         self.on_click = on_click
         self.on_focus = on_focus
         self.lose_focus = lose_fucus
         self.check_enable = check_enable
         self.focus = False
-        self.focus_image = self.images["focus"]
+        self.focus_image = self.images["focus"] if "focus" in self.images else self.images["normal"]
         self.disable_image = self.images["diable"] if "diable" in self.images else self.images["normal"]
         self.normal_image = self.images["normal"]
         self.enable = True
@@ -96,6 +117,8 @@ class Button(Item):
         # check enable
         if self.check_enable is not None:
             self.enable = self.check_enable(status, event)
+        if not status.mouse_available:
+            return True
         # check focus
         if not self.rect.collidepoint(status.mouse_pos):
             self.image = self.normal_image if self.enable else self.disable_image
@@ -108,6 +131,7 @@ class Button(Item):
         if self.on_focus is not None:
             self.on_focus(status)
         for e in event:
-            if e.type == pygame.MOUSEBUTTONUP:
+            if self.enable and e.type == pygame.MOUSEBUTTONUP and e.button == 1:
                 self.on_click(status)
+                break
         return True
