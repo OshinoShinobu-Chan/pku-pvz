@@ -19,11 +19,9 @@ jobs:
         python -m pip install --upgrade pip
         pip install pygame
         pip install pyinstaller
-    - name: Set PYTHONPATH
-      run: |
-        $env:PYTHONPATH = $pwd
     - name: Build with PyInstaller
       run: |
+        $env:PYTHONPATH = $pwd
         pyinstaller main.spec
     - name: Upload artifact
       uses: actions/upload-artifact@v4
@@ -44,11 +42,9 @@ jobs:
         python -m pip install --upgrade pip
         pip install pygame
         pip install pyinstaller
-    - name: Set PYTHONPATH
-      run: |
-        export PYTHONPATH=$(pwd)
     - name: Build with PyInstaller
       run: |
+        export PYTHONPATH=$(pwd)
         pyinstaller main.spec
     - name: Upload artifact
       uses: actions/upload-artifact@v4
