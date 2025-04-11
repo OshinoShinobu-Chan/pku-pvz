@@ -28,7 +28,7 @@ def click_plant_card_wrapper(name, json_path):
             return
         status.selected_plants[index] = name
         status.selected_plants_cnt += 1
-        pos = [status.screen.get_width() / 2 - 160 + (index - 4) * 80 + 40, 50]
+        pos = [status.screen.get_width() / 2 - 160 + (index - 4) * 100 + 50, 60]
         full_name = "selected_plant_cards_" + str(index)
         on_click = click_selected_plant_card_wrapper(full_name, index)
         on_focus = focus_plant_card_wrapper(name)
@@ -86,15 +86,6 @@ def focus_showing_zombie_wrapper(name):
 
 def check_start_game_enble(status, event):
     return status.selected_plants_cnt != 0
-
-def click_plant_card_slot_wrapper(index, init_pos):
-    def click_plant_card_clot(status, event):
-        plant_name = status.selected_plants[index]
-        # status.items[plant_name + str(status.plant_id)] = Plant(
-        #     pos=init_pos,
-            
-        # )
-
 
 class Button(Item):
     def __init__(self, pos, on_click, json_path, name, on_focus=None, lose_fucus=None, check_enable=None):

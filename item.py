@@ -18,6 +18,7 @@ class Item:
         
         self.size = pygame.Vector2(config["size"][0], config["size"][1])
         self.pos = pygame.Vector2(pos[0] - self.size.x / 2, pos[1] - self.size.y / 2)
+        self.central = pos
         self.rect = pygame.Rect(self.pos, self.size)
         self.name = name
         self.image = pygame.transform.smoothscale(

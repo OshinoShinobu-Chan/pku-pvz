@@ -45,7 +45,7 @@ class GameStart:
             plant_cards = json.load(f)
         for (i, (key, plant_card)) in enumerate(plant_cards.items()):
             index = [i // 6, i % 6]
-            pos = [status.screen.get_width() / 6 + ((index[1] - 2) * 2 + 1) * 40,
+            pos = [status.screen.get_width() / 5 + ((index[1] - 2) * 2 + 1) * 50,
                    status.screen.get_height() * 2 / 5 + (index[0] * 2 + 1) * 60]
             status.items[plant_card["name"] + "_card"] = (Button(pos=pos, 
                                        on_click=click_plant_card_wrapper(plant_card["name"], plant_card["json_path"]),
@@ -123,8 +123,18 @@ class GameCountDown:
                                                 start_tick=status.global_ticks,
                                                 duration_ms=1000)
             self.status = 0
+        elif self.status == 0 and status.global_ticks >= self.start_tick + 240:
+            status.executors.append(Game(status.global_ticks))
             return False
         return True
+
+def sun_update(event, status):
+    status.items["sun_text"].set_text(str(status.sun))
+    size = status.items["sun_text"].font.size(str(status.sun))
+    pos = [status.items["sun_text"].central[0] - size[0] // 2, 
+           status.items["sun_text"].central[1] - size[1] // 2]
+    status.items["sun_text"].rect = pygame.Rect(pos, size)
+    return True
 
 class Game:
     def __init__(self, tick):
@@ -132,11 +142,40 @@ class Game:
         self.initialized = False
 
     def excute(self, status, event):
+        from button import no_action
+        from plant_card import PlantCard
+        from sun import SunSpawner
+        with open(resource_path("./configs/plant_cards/plant_cards.json"), "r", encoding='utf-8') as f:
+            configs = json.load(f)
+        plant_configs = {configs[k]["name"] : configs[k] for k in configs.keys()}
         # first start
         if not self.initialized:
+            status.sun = 100
             # selected plant cards
             for (i, plant) in enumerate(status.selected_plants):
                 if plant is None:
                     continue
-                pos = [status.screen.get_width() / 2  - 160 + (i - 4) * 80 + 40, 50]
+                pos = [300 + (i * 2 + 1) * 50, 60]
+                status.items["selected_" + plant + "_" + str(i)] = \
+                    PlantCard(pos=pos,
+                        json_path=plant_configs[plant]["json_path"],
+                        name="selected_" + plant + "_" + str(i),
+                        cold_time=plant_configs[plant]["cold_time"],
+                        sun=plant_configs[plant]["sun"],
+                        start_tick=status.global_ticks,
+                        plant_name=plant,
+                        life=plant_configs[plant]["life"])
+            # sun card
+            status.static_items["sun_card"] = Static(pos=[260, 40],
+                                              json_path=resource_path("./configs/statics/sun.json"),
+                                              name="sun_cards")
+            # sun text
+            status.items["sun_text"] = Text(pos=[260, 100],
+                                            json_path=resource_path("./configs/texts/sun_text.json"),
+                                            name="sun_text",
+                                            text="100",
+                                            font_size=28,
+                                            update=sun_update)
+            # sun spawner
+            status.executors.append(SunSpawner(status.global_ticks))
 

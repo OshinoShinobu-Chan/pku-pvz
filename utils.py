@@ -1,8 +1,23 @@
 import sys
 import os
 
+from pathlib import Path
+
+def is_subpath(parent_path, child_path):
+    parent = Path(parent_path).resolve()
+    child = Path(child_path).resolve()
+    
+    try:
+        child.relative_to(parent)
+        return True
+    except ValueError:
+        return False
+
+
 def resource_path(relative_path):
     p = relative_path.split("/")
+    if p[0] != ".":
+        return relative_path
     path = "."
     for i in p:
         path = os.path.join(path, i)
