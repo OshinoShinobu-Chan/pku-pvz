@@ -1,6 +1,6 @@
 [project]
 name = "pkupvz"
-version = "0.1.0"
+version = "0.2.0"
 description = "Plant versus zombie with plants from PKU."
 authors = [
     {name = "彭子隽",email = "2200012909@stu.pku.edu.cn"}

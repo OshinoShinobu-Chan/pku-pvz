@@ -1,11 +1,11 @@
 {
-    "plant1": {
-        "name": "plant1",
-        "description": "这里是plant1的介绍",
-        "json_path": "./configs/plant_cards/plant1.json",
-        "cold_time": 5,
-        "sun": 50,
-        "life": 1000
+    "zhonghuaxiaokumai": {
+        "name": "zhonghuaxiaokumai",
+        "description": "中华小苦荬",
+        "json_path": "./configs/plant_cards/zhonghuaxiaokumai.json",
+        "cold_time": 6,
+        "sun": 25,
+        "life": 300
     },
     "plant2": {
         "name": "plant2",

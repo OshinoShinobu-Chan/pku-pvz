@@ -7,6 +7,7 @@ from button import Button, click_start
 from status import Status
 from start import Start
 from game import GameBackground
+from utils import plant_grid_to_zombie_grid, zombie_grid_to_plant_grid
 
 # pygame setup
 pygame.init()
@@ -89,6 +90,36 @@ while status.running:
     new_executors = [excutor for (i, excutor) in enumerate(status.executors)
                         if i not in set(remove_executors)]
     status.executors = new_executors
+
+    # calc plant harms
+    for i in range(1, 10):
+        for j in range(5):
+            plant_index = zombie_grid_to_plant_grid([i, j])
+            plant_aoe_harm = status.planted_aoe_harm[plant_index[0]][plant_index[1]]
+            plant_single_harm = status.planted_single_harm[plant_index[0]][plant_index[1]]
+            if plant_aoe_harm != 0:
+                for zombie in status.zombies[i][j].keys():
+                    status.items[zombie].harm(status, plant_aoe_harm)
+                    
+            if plant_single_harm != 0:
+                for zombie in status.zombies[i][j].keys():
+                    status.items[zombie].harm(status, plant_single_harm)
+                    break
+    
+    # calc zombie harms
+    for i in range(9):
+        for j in range(5):
+            zombie_index = plant_grid_to_zombie_grid([i, j])
+            zombie_harms = status.zombies_harm[zombie_index[0]][zombie_index[1]]
+            if zombie_harms != 0:
+                plant = status.planted_plant[i][j]
+                if plant is not None:
+                    status.items[plant].harm(zombie_harms)
+
+    # clear harms
+    status.planted_single_harm = [[0 for _ in range(5)] for _ in range(9)]
+    status.planted_aoe_harm = [[0 for _ in range(5)] for _ in range(9)]
+    status.zombies_harm = [[0 for _ in range(5)] for _ in range(11)]
 
     # flip() the display to put your work on screen
     pygame.display.flip()

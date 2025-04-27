@@ -4,5 +4,6 @@
     "normal": "./resources/plant_cards/plant1.png",
     "focus": "./resources/plant_cards/plant1_dark.png",
     "click": "./resources/plant_cards/plant1_dark.png"
-  }
+  },
+  "animation": ["./resources/plant_cards/plant1.png"]
 }

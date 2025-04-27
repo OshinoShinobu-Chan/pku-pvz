@@ -5,6 +5,7 @@ import json
 from status import GamePhase
 from random import randint
 from utils import resource_path
+from zombie_spawner import ZombieChecker
 
 class GameBackground:
     def excute(self, status, event):
@@ -142,9 +143,10 @@ class Game:
         self.initialized = False
 
     def excute(self, status, event):
-        from button import no_action
+        from button import Button
         from plant_card import PlantCard
         from sun import SunSpawner
+        from shovel import click_shovel
         with open(resource_path("./configs/plant_cards/plant_cards.json"), "r", encoding='utf-8') as f:
             configs = json.load(f)
         plant_configs = {configs[k]["name"] : configs[k] for k in configs.keys()}
@@ -155,7 +157,7 @@ class Game:
             for (i, plant) in enumerate(status.selected_plants):
                 if plant is None:
                     continue
-                pos = [300 + (i * 2 + 1) * 50, 60]
+                pos = [240 + (i * 2 + 1) * 50, 60]
                 status.items["selected_" + plant + "_" + str(i)] = \
                     PlantCard(pos=pos,
                         json_path=plant_configs[plant]["json_path"],
@@ -166,16 +168,23 @@ class Game:
                         plant_name=plant,
                         life=plant_configs[plant]["life"])
             # sun card
-            status.static_items["sun_card"] = Static(pos=[260, 40],
+            status.static_items["sun_card"] = Static(pos=[200, 40],
                                               json_path=resource_path("./configs/statics/sun.json"),
                                               name="sun_cards")
             # sun text
-            status.items["sun_text"] = Text(pos=[260, 100],
+            status.items["sun_text"] = Text(pos=[200, 100],
                                             json_path=resource_path("./configs/texts/sun_text.json"),
                                             name="sun_text",
                                             text="100",
                                             font_size=28,
                                             update=sun_update)
+            # shovel card
+            status.items["shovel_card"] = Button(pos=[1080, 40],
+                                                 on_click=click_shovel,
+                                                 json_path=resource_path("./configs/statics/shovel.json"),
+                                                 name="shovel_card")
             # sun spawner
             status.executors.append(SunSpawner(status.global_ticks))
+            # zombie checker
+            status.executors.append(ZombieChecker(status.global_ticks))
 

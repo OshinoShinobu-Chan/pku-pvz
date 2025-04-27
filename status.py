@@ -10,6 +10,8 @@ class GamePhase(Enum):
     END = auto()
 
 PLANT_AREA = pygame.Rect(250, 120, 900, 600)
+ZOMEBIE_AREA = pygame.Rect(150, 120, 1100, 600)
+GRID_SIZE = [100, 120]
 
 class Status:
     def __init__(self, screen, clock):
@@ -31,8 +33,17 @@ class Status:
         self.mouse = None
         self.plant_id = 0
         self.sun = 0
-        self.planted_plant = [[None for _ in range(5)] for _ in range(6)]
+        self.planted_plant = [[None for _ in range(5)] for _ in range(9)]
         self.planted_plant_cnt = 0
+        self.planted_single_harm = [[0 for _ in range(5)] for _ in range(9)]
+        self.planted_aoe_harm = [[0 for _ in range(5)] for _ in range(9)]
+        self.zombies = [[{} for _ in range(5)] for _ in range(11)]
+        self.zombies_cnt = 0
+        self.zombies_harm = [[0 for _ in range(5)] for _ in range(11)]
+        self.zombies_total_life = 0
+        self.zombies_origin_total_life = 0
+        self.zombie_round = 0
+        self.season = 0
         import json
         with open(resource_path("./configs/plant_cards/plant_cards.json"), "r", encoding="utf8") as f:
             des = json.load(f)
@@ -41,3 +52,7 @@ class Status:
         with open(resource_path("./configs/zombies/zombies.json"), "r", encoding='utf-8') as f:
             des = json.load(f)
             self.zombie_descriptions = {k: des[k]["description"] for k in des.keys()}
+            self.zombie_configs = des
+            self.zombie_difficulties = [[], [], []]
+            for k in des.keys():
+                self.zombie_difficulties[des[k]["diffculty"] - 1].append(k)

@@ -2,5 +2,6 @@
     "size": [50, 120],
     "image_paths": {
         "normal": "./resources/zombies/zombie3.png"
-    }
+    },
+    "diffculty": 3
 }

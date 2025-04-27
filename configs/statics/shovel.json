@@ -1,0 +1,6 @@
+{
+    "size": [80, 80],
+    "image_paths": {
+        "normal": "./resources/statics/shovel.png"
+    }
+}
