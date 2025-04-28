@@ -10,14 +10,14 @@ class GamePhase(Enum):
     END = auto()
 
 PLANT_AREA = pygame.Rect(250, 120, 900, 600)
-ZOMEBIE_AREA = pygame.Rect(150, 120, 1100, 600)
+ZOMBIE_AREA = pygame.Rect(150, 120, 1100, 600)
 GRID_SIZE = [100, 120]
 
 class Status:
     def __init__(self, screen, clock):
         self.game_phase = GamePhase.START
         self.running = True
-        self.items = {}
+        self.items = [{} for _ in range(6)]
         self.static_items = {}
         self.backgrounds = []
         self.executors = []
@@ -43,7 +43,11 @@ class Status:
         self.zombies_total_life = 0
         self.zombies_origin_total_life = 0
         self.zombie_round = 0
+        self.zombie_can_move = [[True for _ in range(5)] for _ in range(11)]
+        self.winter_zombie_cnt = 0
         self.season = 0
+        self.bullets = [[{} for _ in range(5)] for _ in range(9)]
+        self.bullets_cnt = 0
         import json
         with open(resource_path("./configs/plant_cards/plant_cards.json"), "r", encoding="utf8") as f:
             des = json.load(f)

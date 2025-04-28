@@ -9,7 +9,8 @@ from utils import resource_path
 
 def click_start(status):
     status.game_phase = GamePhase.GAME_START
-    status.items.clear()
+    for i in range(6):
+        status.items[i].clear()
     status.backgrounds.clear()
     status.executors.append(GameBackground())
     status.executors.append(GameStart())
@@ -32,7 +33,7 @@ def click_plant_card_wrapper(name, json_path):
         full_name = "selected_plant_cards_" + str(index)
         on_click = click_selected_plant_card_wrapper(full_name, index)
         on_focus = focus_plant_card_wrapper(name)
-        status.items[full_name] = Button(pos=pos,
+        status.items[5][full_name] = Button(pos=pos,
                                     on_click=on_click,
                                     json_path=json_path,
                                     name=full_name,
@@ -53,14 +54,15 @@ def lose_focus_card(status):
 
 def click_selected_plant_card_wrapper(name, index):
     def click_selected_plant_card(status):
-        del status.items[name]
+        del status.items[5][name]
         status.selected_plants_cnt -= 1
         status.selected_plants[index] = None
     return click_selected_plant_card
 
 def click_start_game(status):
     status.game_phase = GamePhase.GAME
-    status.items.clear()
+    for i in range(6):
+        status.items[i].clear()
     status.backgrounds.clear()
     status.static_items.clear()
     status.executors.append(GameBackground())
@@ -68,7 +70,8 @@ def click_start_game(status):
 
 def click_end_game(status):
     status.game_phase = GamePhase.START
-    status.items.clear()
+    for i in range(6):
+        status.items[i].clear()
     status.backgrounds.clear()
     status.static_items.clear()
     status.executors.append(GameBackground())

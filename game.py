@@ -48,7 +48,7 @@ class GameStart:
             index = [i // 6, i % 6]
             pos = [status.screen.get_width() / 5 + ((index[1] - 2) * 2 + 1) * 50,
                    status.screen.get_height() * 2 / 5 + (index[0] * 2 + 1) * 60]
-            status.items[plant_card["name"] + "_card"] = (Button(pos=pos, 
+            status.items[5][plant_card["name"] + "_card"] = (Button(pos=pos, 
                                        on_click=click_plant_card_wrapper(plant_card["name"], plant_card["json_path"]),
                                        json_path=resource_path(plant_card["json_path"]),
                                        name=plant_card["name"] + "_card",
@@ -63,21 +63,21 @@ class GameStart:
                 index = [randint(0, 2), randint(0, 3)]
                 pos = [status.screen.get_width() * 2 / 3 + (index[0] * 2 + 1) * 15,
                        100 + (index[1] * 2 + 1) * 60]
-                status.items[zombie["name"] + "_" + str(i)] = Button(pos=pos,
+                status.items[5][zombie["name"] + "_" + str(i)] = Button(pos=pos,
                                                     on_click=no_action,
                                                     json_path=resource_path(zombie["json_path"]),
                                                     name=zombie["name"],
                                                     on_focus=focus_showing_zombie_wrapper(zombie["name"]),
                                                     lose_fucus=lose_focus_card)
         # start button
-        status.items["start-button"] = Button(pos=[status.screen.get_width() / 4, 
+        status.items[5]["start-button"] = Button(pos=[status.screen.get_width() / 4, 
                                         status.screen.get_height() - 60, 1],
                     json_path=resource_path("./configs/buttons/start_button.json"),
                     on_click=click_start_game,
                     name="start-button",
                     check_enable=check_start_game_enble)
         # end button
-        status.items["end-button"] = Button(pos=[status.screen.get_width() * 3 / 4, 
+        status.items[5]["end-button"] = Button(pos=[status.screen.get_width() * 3 / 4, 
                                         status.screen.get_height() - 60, 1],
                     json_path=resource_path("./configs/buttons/end_button.json"),
                     on_click=click_end_game,
@@ -93,7 +93,7 @@ class GameCountDown:
     def excute(self, status, event):
         from merge import Merge 
         if self.status == 4 and status.global_ticks >= self.start_tick:
-            status.items["count_down_3"] = Merge(pos=[status.screen.get_width() / 2, 
+            status.items[5]["count_down_3"] = Merge(pos=[status.screen.get_width() / 2, 
                                                      status.screen.get_height() / 2],
                                                 json_path=resource_path("./configs/texts/number3.json"),
                                                 name="count_down_3",
@@ -101,7 +101,7 @@ class GameCountDown:
                                                 duration_ms=1000)
             self.status = 3
         elif self.status == 3 and status.global_ticks >= self.start_tick + 60:
-            status.items["count_down_2"] = Merge(pos=[status.screen.get_width() / 2, 
+            status.items[5]["count_down_2"] = Merge(pos=[status.screen.get_width() / 2, 
                                                      status.screen.get_height() / 2],
                                                 json_path=resource_path("./configs/texts/number2.json"),
                                                 name="count_down_2",
@@ -109,7 +109,7 @@ class GameCountDown:
                                                 duration_ms=1000)
             self.status = 2
         elif self.status == 2 and status.global_ticks >= self.start_tick + 120:
-            status.items["count_down_1"] = Merge(pos=[status.screen.get_width() / 2, 
+            status.items[5]["count_down_1"] = Merge(pos=[status.screen.get_width() / 2, 
                                                      status.screen.get_height() / 2],
                                                 json_path=resource_path("./configs/texts/number1.json"),
                                                 name="count_down_1",
@@ -117,7 +117,7 @@ class GameCountDown:
                                                 duration_ms=1000)
             self.status = 1
         elif self.status == 1 and status.global_ticks >= self.start_tick + 180:
-            status.items["count_down_start"] = Merge(pos=[status.screen.get_width() / 2, 
+            status.items[5]["count_down_start"] = Merge(pos=[status.screen.get_width() / 2, 
                                                      status.screen.get_height() / 2],
                                                 json_path=resource_path("./configs/texts/start.json"),
                                                 name="count_down_start",
@@ -130,11 +130,11 @@ class GameCountDown:
         return True
 
 def sun_update(event, status):
-    status.items["sun_text"].set_text(str(status.sun))
-    size = status.items["sun_text"].font.size(str(status.sun))
-    pos = [status.items["sun_text"].central[0] - size[0] // 2, 
-           status.items["sun_text"].central[1] - size[1] // 2]
-    status.items["sun_text"].rect = pygame.Rect(pos, size)
+    status.items[5]["sun_text"].set_text(str(status.sun))
+    size = status.items[5]["sun_text"].font.size(str(status.sun))
+    pos = [status.items[5]["sun_text"].central[0] - size[0] // 2, 
+           status.items[5]["sun_text"].central[1] - size[1] // 2]
+    status.items[5]["sun_text"].rect = pygame.Rect(pos, size)
     return True
 
 class Game:
@@ -158,7 +158,7 @@ class Game:
                 if plant is None:
                     continue
                 pos = [240 + (i * 2 + 1) * 50, 60]
-                status.items["selected_" + plant + "_" + str(i)] = \
+                status.items[5]["selected_" + plant + "_" + str(i)] = \
                     PlantCard(pos=pos,
                         json_path=plant_configs[plant]["json_path"],
                         name="selected_" + plant + "_" + str(i),
@@ -172,14 +172,14 @@ class Game:
                                               json_path=resource_path("./configs/statics/sun.json"),
                                               name="sun_cards")
             # sun text
-            status.items["sun_text"] = Text(pos=[200, 100],
+            status.items[5]["sun_text"] = Text(pos=[200, 100],
                                             json_path=resource_path("./configs/texts/sun_text.json"),
                                             name="sun_text",
                                             text="100",
                                             font_size=28,
                                             update=sun_update)
             # shovel card
-            status.items["shovel_card"] = Button(pos=[1080, 40],
+            status.items[5]["shovel_card"] = Button(pos=[1080, 40],
                                                  on_click=click_shovel,
                                                  json_path=resource_path("./configs/statics/shovel.json"),
                                                  name="shovel_card")

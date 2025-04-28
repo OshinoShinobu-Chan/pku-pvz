@@ -28,31 +28,31 @@ while status.running:
     status.mouse_pos = pygame.mouse.get_pos()
     screen.fill((0, 0, 0))
 
-    if status.pause:
-        for item in status.pause_items:
-            item.update(status, event)
-            item.draw(screen)
+    # if status.pause:
+    #     for item in status.pause_items:
+    #         item.update(status, event)
+    #         item.draw(screen)
 
-        for item in status.static_items.values():
-            item.draw(screen)
+    #     for item in status.static_items.values():
+    #         item.draw(screen)
 
-        for item in status.backgrounds:
-            item.draw(screen)
+    #     for item in status.backgrounds:
+    #         item.draw(screen)
         
-        for item in status.items.values():
-            item.draw(screen)
+    #     for item in status.items.values():
+    #         item.draw(screen)
         
-        # flip() the display to put your work on screen
-        pygame.display.update()
+    #     # flip() the display to put your work on screen
+    #     pygame.display.update()
 
-        # limits FPS to 60
-        real_time = clock.tick(60)
-        if status.global_ticks % 10 == 0:
-            status.tps = 1000 / real_time
+    #     # limits FPS to 60
+    #     real_time = clock.tick(60)
+    #     if status.global_ticks % 10 == 0:
+    #         status.tps = 1000 / real_time
 
-        # update the event
-        pygame.event.pump()
-        continue
+    #     # update the event
+    #     pygame.event.pump()
+    #     continue
 
     for b in status.backgrounds:
         b.draw(screen)
@@ -66,30 +66,23 @@ while status.running:
             remove_executors.append(i)
 
     # update all items
-    items = []
-    for item in status.items.keys():
-        items.append(deepcopy(item))
-    for item in items:
-        if item in status.items:
-            if not status.items[item].update(events, status):
-                remove_items.append(item)
+    for i in range(6):
+        items = []
+        for item in status.items[i].keys():
+            items.append(deepcopy(item))
+        for item in items:
+            if item in status.items[i]:
+                if not status.items[i][item].update(events, status):
+                    remove_items.append((item, i))
     
     # draw all static items
     for item in status.static_items.values():
         item.draw(screen)
 
     # draw all items
-    for item in status.items.values():
-        item.draw(screen)
-
-    # remove items
-    for item in remove_items:
-        del status.items[item]
-    
-    # remove executors
-    new_executors = [excutor for (i, excutor) in enumerate(status.executors)
-                        if i not in set(remove_executors)]
-    status.executors = new_executors
+    for i in range(6):
+        for item in status.items[i].values():
+            item.draw(screen)
 
     # calc plant harms
     for i in range(1, 10):
@@ -99,11 +92,11 @@ while status.running:
             plant_single_harm = status.planted_single_harm[plant_index[0]][plant_index[1]]
             if plant_aoe_harm != 0:
                 for zombie in status.zombies[i][j].keys():
-                    status.items[zombie].harm(status, plant_aoe_harm)
+                    status.items[4][zombie].harm(status, plant_aoe_harm)
                     
             if plant_single_harm != 0:
                 for zombie in status.zombies[i][j].keys():
-                    status.items[zombie].harm(status, plant_single_harm)
+                    status.items[4][zombie].harm(status, plant_single_harm)
                     break
     
     # calc zombie harms
@@ -114,12 +107,21 @@ while status.running:
             if zombie_harms != 0:
                 plant = status.planted_plant[i][j]
                 if plant is not None:
-                    status.items[plant].harm(zombie_harms)
+                    status.items[3][plant].harm(zombie_harms)
 
     # clear harms
     status.planted_single_harm = [[0 for _ in range(5)] for _ in range(9)]
     status.planted_aoe_harm = [[0 for _ in range(5)] for _ in range(9)]
     status.zombies_harm = [[0 for _ in range(5)] for _ in range(11)]
+    
+    # remove items
+    for item in remove_items:
+        del status.items[item[1]][item[0]]
+    
+    # remove executors
+    new_executors = [excutor for (i, excutor) in enumerate(status.executors)
+                        if i not in set(remove_executors)]
+    status.executors = new_executors
 
     # flip() the display to put your work on screen
     pygame.display.flip()

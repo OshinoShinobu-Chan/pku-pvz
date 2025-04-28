@@ -7,29 +7,29 @@
         "sun": 25,
         "life": 300
     },
-    "plant2": {
-        "name": "plant2",
-        "description": "这里是plant2的介绍",
-        "json_path": "./configs/plant_cards/plant2.json",
-        "cold_time": 5,
+    "baojingxiaokumai": {
+        "name": "baojingxiaokumai",
+        "description": "抱茎小苦荬",
+        "json_path": "./configs/plant_cards/baojingxiaokumai.json",
+        "cold_time": 6,
         "sun": 50,
-        "life": 1000
+        "life": 300
     },
-    "plant3": {
-        "name": "plant3",
-        "description": "这里是plant3的介绍",
-        "json_path": "./configs/plant_cards/plant3.json",
-        "cold_time": 5,
-        "sun": 50,
-        "life": 1000
+    "luomo": {
+        "name": "luomo",
+        "description": "萝藦",
+        "json_path": "./configs/plant_cards/luomo.json",
+        "cold_time": 6,
+        "sun": 100,
+        "life": 300
     },
-    "plant4": {
-        "name": "plant4",
-        "description": "这里是plant4的介绍",
-        "json_path": "./configs/plant_cards/plant4.json",
-        "cold_time": 5,
-        "sun": 50,
-        "life": 1000
+    "dongqingweimao": {
+        "name": "dongqingweimao",
+        "description": "冬青卫矛",
+        "json_path": "./configs/plant_cards/dongqingweimao.json",
+        "cold_time": 30,
+        "sun": 150,
+        "life": 4000
     },
     "plant5": {
         "name": "plant5",

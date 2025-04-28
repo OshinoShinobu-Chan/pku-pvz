@@ -1,0 +1,6 @@
+{
+    "size": [60, 60],
+    "image_paths": {
+        "normal": "./resources/statics/sun.png"
+    }
+}

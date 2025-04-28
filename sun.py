@@ -3,10 +3,11 @@ import pygame
 from utils import resource_path
 
 class Sun(Button):
-    def __init__(self, pos, on_click, json_path, name, sun, move_delta = 0, on_focus=None, lose_fucus=None, check_enable=None):
+    def __init__(self, pos, on_click, json_path, name, sun, move_delta = 0, on_focus=None, lose_fucus=None, check_enable=None, tick=0):
         super().__init__(pos, on_click, json_path, name, on_focus, lose_fucus, check_enable)
         self.sun = sun
         self.move_delta = move_delta
+        self.start_tick = tick
     
     def move(self):
         if self.move_delta == 0:
@@ -16,7 +17,8 @@ class Sun(Button):
 
     def update(self, event, status):
         self.move()
-        if self.pos[1] > 730:
+        if self.pos[1] > 730 or \
+            (self.move_delta == 0 and status.global_ticks - self.start_tick >= 600):
             return False
         if not self.rect.collidepoint(status.mouse_pos):
             return True
@@ -32,7 +34,7 @@ class SunSpawner:
     
     def excute(self, status, event):
         if (status.global_ticks - self.start_tick) % 600 == 0:
-            status.items["moving_sun" + str(status.global_ticks)] = Sun(pos=[450, 160],
+            status.items[5]["moving_sun" + str(status.global_ticks)] = Sun(pos=[450, 160],
                                          on_click=None,
                                          json_path=resource_path("./configs/statics/sun.json"),
                                          name="moving_sun",

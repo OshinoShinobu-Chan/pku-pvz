@@ -2,6 +2,10 @@ from button import Button
 from enum import Enum, auto
 from plant import Plant
 from test_plant import TestPlant
+from plants.zhonghuaxiaokumai import ZhongHuaXiaoKuMai
+from plants.baojingxiaokumai import BaoJingXiaoKuMai
+from plants.luomo import LuoMo
+from plants.dongqingweimao import DongQingWeiMao
 
 class PlantCardStatus(Enum):
     NORMAL = auto(),
@@ -12,7 +16,40 @@ def on_click_wrapper(name, plant, json_path, plant_name):
         status.planted_plant_cnt += 1
         match plant_name:
             case "zhonghuaxiaokumai":
-                p = TestPlant(
+                p = ZhongHuaXiaoKuMai(
+                    pos=plant.pos,
+                    json_path=json_path,
+                    name=plant.name,
+                    tick=status.global_ticks,
+                    life=plant.life,
+                    sun=plant.sun,
+                    to_cold_time=plant.to_cold_time,
+                    item_name=name + "_" + str(status.planted_plant_cnt)
+                )
+            case "baojingxiaokumai":
+                p = BaoJingXiaoKuMai(
+                    pos=plant.pos,
+                    json_path=json_path,
+                    name=plant.name,
+                    tick=status.global_ticks,
+                    life=plant.life,
+                    sun=plant.sun,
+                    to_cold_time=plant.to_cold_time,
+                    item_name=name + "_" + str(status.planted_plant_cnt)
+                )
+            case "luomo":
+                p = LuoMo(
+                    pos=plant.pos,
+                    json_path=json_path,
+                    name=plant.name,
+                    tick=status.global_ticks,
+                    life=plant.life,
+                    sun=plant.sun,
+                    to_cold_time=plant.to_cold_time,
+                    item_name=name + "_" + str(status.planted_plant_cnt)
+                )
+            case "dongqingweimao":
+                p = DongQingWeiMao(
                     pos=plant.pos,
                     json_path=json_path,
                     name=plant.name,
@@ -31,7 +68,7 @@ def on_click_wrapper(name, plant, json_path, plant_name):
                         sun=plant.sun,
                         to_cold_time=plant.to_cold_time,
                         item_name=name + "_" + str(status.planted_plant_cnt))
-        status.items[name + "_" + str(status.planted_plant_cnt)] = p
+        status.items[5][name + "_" + str(status.planted_plant_cnt)] = p
     return on_click
 
 def to_cold_time_wrapper(card):
@@ -46,14 +83,41 @@ class PlantCard(Button):
     def __init__(self, pos, json_path, name, cold_time, sun, start_tick, life, plant_name):
         match plant_name:
             case "zhonghuaxiaokumai":
-                self.plant = TestPlant(pos=pos, 
+                self.plant = ZhongHuaXiaoKuMai(pos=pos, 
                                         json_path=json_path, 
                                         name="planted_" + plant_name, 
                                         tick=start_tick, 
                                         life=life,
                                         sun=sun,
                                         to_cold_time=to_cold_time_wrapper(self),
-                                        item_name="template_plant")
+                                        item_name="ZhongHuaXiaoKuMai")
+            case "baojingxiaokumai":
+                self.plant = BaoJingXiaoKuMai(pos=pos,
+                                        json_path=json_path,
+                                        name="planted_" + plant_name,
+                                        tick=start_tick,
+                                        life=life,
+                                        sun=sun,
+                                        to_cold_time=to_cold_time_wrapper(self),
+                                        item_name="BaoJingXiaoKuMai")
+            case "luomo":
+                self.plant = LuoMo(pos=pos,
+                                        json_path=json_path,
+                                        name="planted_" + plant_name,
+                                        tick=start_tick,
+                                        life=life,
+                                        sun=sun,
+                                        to_cold_time=to_cold_time_wrapper(self),
+                                        item_name="luomo")
+            case "dongqingweimao":
+                self.plant = DongQingWeiMao(pos=pos,
+                                        json_path=json_path,
+                                        name="planted_" + plant_name,
+                                        tick=start_tick,
+                                        life=life,
+                                        sun=sun,
+                                        to_cold_time=to_cold_time_wrapper(self),
+                                        item_name="dongqingweimao")
             case _:
                 self.plant = Plant(pos=pos, 
                                 json_path=json_path, 

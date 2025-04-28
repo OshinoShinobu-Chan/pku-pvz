@@ -3,7 +3,7 @@ from status import PLANT_AREA
 from utils import resource_path, plant_grid_to_zombie_grid
 
 def click_shovel(status):
-    status.items["shovel"] = Shovel(pos=status.mouse_pos,
+    status.items[5]["shovel"] = Shovel(pos=status.mouse_pos,
                                     json_path=resource_path("./configs/statics/shovel.json"),
                                     name="shovel",
                                     tick=None,

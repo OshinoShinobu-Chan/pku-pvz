@@ -1,6 +1,6 @@
 from random import randrange, seed
 from test_zombie import TestZombie
-from status import ZOMEBIE_AREA
+from status import ZOMBIE_AREA
 
 class ZombieSpawner:
     def __init__(self, start_tick, round):
@@ -30,15 +30,15 @@ class ZombieSpawner:
         if (status.global_ticks - self.start_tick) % self.wait == 0:
             zombie_name = self.random_zombie(status)
             if zombie_name is None:
-                status.executores.append(ZombieChecker(status.global_ticks))
+                status.executors.append(ZombieChecker(status.global_ticks))
                 return False
             index = [10, self.random_pos()]
             
             item_name = zombie_name + "_" + str(status.zombies_cnt)
             status.zombies_cnt += 1
             pos = [
-                ZOMEBIE_AREA.left + (index[0] * 2 + 1) * 100 // 2,
-                ZOMEBIE_AREA.top + (index[1] * 2 + 1) * 120 // 2,
+                ZOMBIE_AREA.left + (index[0] * 2 + 1) * 100 // 2,
+                ZOMBIE_AREA.top + (index[1] * 2 + 1) * 120 // 2,
             ]
             z = TestZombie(
                 pos=pos,
@@ -48,8 +48,7 @@ class ZombieSpawner:
                 life=status.zombie_configs[zombie_name]["life"],
                 item_name=item_name,
             )
-            status.items[item_name] = z
-            status.zombies[index[0]][index[1]][item_name] = True
+            status.items[4][item_name] = z
             status.zombies_total_life += z.life
             status.zombies_origin_total_life += z.life
             return True

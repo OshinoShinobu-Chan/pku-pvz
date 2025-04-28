@@ -1,5 +1,5 @@
 from item import Item
-from status import ZOMEBIE_AREA, GRID_SIZE
+from status import ZOMBIE_AREA, GRID_SIZE
 from utils import zombie_grid_to_plant_grid
 
 class Zombie(Item):
@@ -8,10 +8,11 @@ class Zombie(Item):
         self.start_tick = tick
         self.life = life
         self.speed = -1
-        self.left_index = [(self.rect.left - ZOMEBIE_AREA.left) // GRID_SIZE[0],
-                           (self.rect.centery - ZOMEBIE_AREA.top) // GRID_SIZE[1]]
-        self.right_index = [(self.rect.right - ZOMEBIE_AREA.left) // GRID_SIZE[0],
-                            (self.rect.centery - ZOMEBIE_AREA.top) // GRID_SIZE[1]]
+        self.left_index = [(self.rect.left - ZOMBIE_AREA.left) // GRID_SIZE[0],
+                           (self.rect.centery - ZOMBIE_AREA.top) // GRID_SIZE[1]]
+        self.right_index = [(self.rect.right - ZOMBIE_AREA.left) // GRID_SIZE[0],
+                            (self.rect.centery - ZOMBIE_AREA.top) // GRID_SIZE[1]]
+        print(self.left_index)
         self.can_move = True
         self.item_name = item_name
         
@@ -26,29 +27,28 @@ class Zombie(Item):
     def move(self, status):
         if self.speed == 0 or not self.can_move:
             return
+        self.remove(status)
         self.pos[0] += self.speed
         self.rect.move_ip(self.speed, 0)
-        self.left_index = [(self.rect.left - ZOMEBIE_AREA.left) // GRID_SIZE[0],
-                           (self.rect.centery - ZOMEBIE_AREA.top) // GRID_SIZE[1]]
-        self.right_index = [(self.rect.right - ZOMEBIE_AREA.left) // GRID_SIZE[0],
-                            (self.rect.centery - ZOMEBIE_AREA.top) // GRID_SIZE[1]]
-        self.remove(status)
+        self.left_index = [(self.rect.left - ZOMBIE_AREA.left) // GRID_SIZE[0],
+                           (self.rect.centery - ZOMBIE_AREA.top) // GRID_SIZE[1]]
+        self.right_index = [(self.rect.right - ZOMBIE_AREA.left) // GRID_SIZE[0],
+                            (self.rect.centery - ZOMBIE_AREA.top) // GRID_SIZE[1]]
         if self.left_index[0] >= 0:
             status.zombies[self.left_index[0]][self.left_index[1]][self.item_name] = True
             status.zombies[self.right_index[0]][self.right_index[1]][self.item_name] = True
 
     def check_move(self, status):
-        if self.left_index[0] > 9 or self.left_index[0] < 1:
-            return True
-        plant_index = zombie_grid_to_plant_grid(self.left_index)
-        return status.planted_plant[plant_index[0]][plant_index[1]] is None
+        if self.left_index[0] >= 0:
+            return status.zombie_can_move[self.left_index[0]][self.left_index[1]]
+        return True
     
     def harm(self, status, harm_num=None):
         if harm_num is None:
             self.life = 0
             status.zombies_total_life -= self.life
         else:
-            self.life -= harm_num
+            self.life -= harm_num if harm_num <= self.life else self.life
             status.zombies_total_life -= harm_num if harm_num <= self.life else self.life
 
     def update(self, event, status):

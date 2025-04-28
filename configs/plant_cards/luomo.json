@@ -1,0 +1,9 @@
+{
+  "size": [100, 120],
+  "image_paths": {
+    "normal": "./resources/plant_cards/luomo.png",
+    "focus": "./resources/plant_cards/luomo_dark.png",
+    "click": "./resources/plant_cards/luomo_dark.png"
+  },
+  "animation": ["./resources/plant_cards/luomo.png"]
+}

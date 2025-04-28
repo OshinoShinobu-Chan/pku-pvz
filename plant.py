@@ -14,6 +14,7 @@ class Plant(Item):
         self.sun = sun
         self.to_cold_time = to_cold_time
         self.item_name = item_name
+        self.can_move = False
     
     def on_mouse(self, status):
         delta = [status.mouse_pos[0] - self.rect.centerx, status.mouse_pos[1] - self.rect.centery]
@@ -35,20 +36,18 @@ class Plant(Item):
         self.to_cold_time()
         status.planted_plant[index[0]][index[1]] = self.item_name
         self.index = [index[0], index[1]]
-        return True
+        zombie_grid = plant_grid_to_zombie_grid(self.index)
+        status.zombie_can_move[zombie_grid[0]][zombie_grid[1]] = self.can_move
+        status.items[3][self.item_name] = self
+        return False
 
     def harm(self, harm_num=None):
         if harm_num is None:
             self.life = 0
         else:
             self.life -= harm_num
-    
-    def update(self, event, status):
-        if self.is_planted:
-            if self.life <= 0:
-                status.planted_plant[self.index[0]][self.index[1]] = None
-                return False
-            return True
+
+    def not_planted(self, event, status):
         self.on_mouse(status)
         # check click
         for e in event:
@@ -57,6 +56,19 @@ class Plant(Item):
                     return False
                 return self.plant(status)
         return True
+
+    def check_life(self, event, status):
+        if self.life <= 0:
+            status.planted_plant[self.index[0]][self.index[1]] = None
+            zombie_grid = plant_grid_to_zombie_grid(self.index)
+            status.zombie_can_move[zombie_grid[0]][zombie_grid[1]] = True
+            return False
+        return True
+    
+    def update(self, event, status):
+        if self.is_planted:
+            return self.check_life(event, status)
+        return self.not_planted(event, status)
 
     def attack(self, status):
         '''leave for child to implement'''
