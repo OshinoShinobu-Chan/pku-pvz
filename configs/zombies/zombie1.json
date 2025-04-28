@@ -1,8 +1,0 @@
-{
-    "size": [50, 120],
-    "image_paths": {
-        "normal": "./resources/zombies/zombie1.png"
-    },
-    "animation": ["./resources/zombies/zombie1.png"],
-    "diffculty": 1
-}

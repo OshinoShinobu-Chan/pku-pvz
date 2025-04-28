@@ -1,6 +1,7 @@
 from random import randrange, seed
 from test_zombie import TestZombie
 from status import ZOMBIE_AREA
+from zombies.shigongjiangshi import ShiGongJiangShi
 
 class ZombieSpawner:
     def __init__(self, start_tick, round):
@@ -40,14 +41,25 @@ class ZombieSpawner:
                 ZOMBIE_AREA.left + (index[0] * 2 + 1) * 100 // 2,
                 ZOMBIE_AREA.top + (index[1] * 2 + 1) * 120 // 2,
             ]
-            z = TestZombie(
-                pos=pos,
-                json_path=status.zombie_configs[zombie_name]["json_path"],
-                name=item_name,
-                tick=status.global_ticks,
-                life=status.zombie_configs[zombie_name]["life"],
-                item_name=item_name,
-            )
+            match zombie_name:
+                case "shigongjiangshi":
+                    z = ShiGongJiangShi(
+                        pos=pos,
+                        json_path=status.zombie_configs[zombie_name]["json_path"],
+                        name=item_name,
+                        tick=status.global_ticks,
+                        life=status.zombie_configs[zombie_name]["life"],
+                        item_name=item_name,
+                    )
+                case _:
+                    z = TestZombie(
+                        pos=pos,
+                        json_path=status.zombie_configs[zombie_name]["json_path"],
+                        name=item_name,
+                        tick=status.global_ticks,
+                        life=status.zombie_configs[zombie_name]["life"],
+                        item_name=item_name,
+                    )
             status.items[4][item_name] = z
             status.zombies_total_life += z.life
             status.zombies_origin_total_life += z.life

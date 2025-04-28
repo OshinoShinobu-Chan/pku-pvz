@@ -1,0 +1,8 @@
+{
+    "size": [50, 120],
+    "image_paths": {
+        "normal": "./resources/zombies/shigongjiangshi.png"
+    },
+    "animation": ["./resources/zombies/shigongjiangshi.png"],
+    "diffculty": 1
+}

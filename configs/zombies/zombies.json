@@ -1,23 +1,9 @@
 {
-    "zombie1": {
-        "name": "zombie1",
-        "description": "这里是zombie1的介绍",
-        "json_path": "./configs/zombies/zombie1.json",
+    "shigongjiangshi": {
+        "name": "shigongjiangshi",
+        "description": "施工僵尸",
+        "json_path": "./configs/zombies/shigongjiangshi.json",
         "diffculty": 1,
-        "life": 270
-    },
-    "zombie2": {
-        "name": "zombie2",
-        "description": "这里是zombie2的介绍",
-        "json_path": "./configs/zombies/zombie2.json",
-        "diffculty": 1,
-        "life": 270
-    },
-    "zombie3": {
-        "name": "zombie3",
-        "description": "这里是zombie3的介绍",
-        "json_path": "./configs/zombies/zombie3.json",
-        "diffculty": 1,
-        "life": 270
+        "life": 320
     }
 }

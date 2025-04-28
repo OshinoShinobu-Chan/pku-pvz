@@ -12,7 +12,6 @@ class Zombie(Item):
                            (self.rect.centery - ZOMBIE_AREA.top) // GRID_SIZE[1]]
         self.right_index = [(self.rect.right - ZOMBIE_AREA.left) // GRID_SIZE[0],
                             (self.rect.centery - ZOMBIE_AREA.top) // GRID_SIZE[1]]
-        print(self.left_index)
         self.can_move = True
         self.item_name = item_name
         
