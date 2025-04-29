@@ -1,0 +1,8 @@
+{
+  "size": [100, 120],
+  "image_paths": {
+    "normal": "./resources/plant_cards/huangcimei.png",
+    "focus": "./resources/plant_cards/huangcimei_dark.png",
+    "click": "./resources/plant_cards/huangcimei_dark.png"
+  }
+}

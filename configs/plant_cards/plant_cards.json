@@ -47,13 +47,13 @@
         "sun": 150,
         "life": 300
     },
-    "plant7": {
-        "name": "plant7",
-        "description": "这里是plant7的介绍",
-        "json_path": "./configs/plant_cards/plant7.json",
-        "cold_time": 5,
-        "sun": 50,
-        "life": 1000
+    "huangcimei": {
+        "name": "huangcimei",
+        "description": "黄刺玫",
+        "json_path": "./configs/plant_cards/huangcimei.json",
+        "cold_time": 30,
+        "sun": 200,
+        "life": 3000
     },
     "plant8": {
         "name": "plant8",

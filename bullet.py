@@ -27,7 +27,7 @@ class Bullet(Item):
     def attack(self, status):
         if not self.in_grid:
             return
-        status.planted_aoe_harm[self.index[0]][self.index[1]] += self.harm
+        status.planted_single_harm[self.index[0]][self.index[1]] += self.harm
 
     def check_exist(self, status):
         if self.pos[0] >= PLANT_AREA.right + 300:
