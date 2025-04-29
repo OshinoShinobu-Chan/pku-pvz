@@ -36,8 +36,8 @@ class Item:
         '''
         pass
 
-    def draw(self, surface):
-        if len(self.animation) > 0:
+    def draw(self, surface, tick):
+        if len(self.animation) > 0 and tick % 3 == 0:
             self.image = self.animation[self.animation_index]
             self.animation_index = (self.animation_index + 1) % len(self.animation)
         surface.blit(self.image, self.rect)

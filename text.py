@@ -34,7 +34,7 @@ class Text(Item):
         if self.update is not None:
             return self.update_function(event, status)
 
-    def draw(self, surface):
+    def draw(self, surface, _tick):
         if self.texts is None:
             return
         for (i, text) in enumerate(self.texts):

@@ -1,0 +1,7 @@
+{
+    "size": [40, 20],
+    "image_paths": {
+        "normal": "./resources/statics/ant.png"
+    },
+    "animation": ["./resources/statics/ant.png"]
+}

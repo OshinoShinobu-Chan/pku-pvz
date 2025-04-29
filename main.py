@@ -55,14 +55,14 @@ while status.running:
     #     continue
 
     for b in status.backgrounds:
-        b.draw(screen)
+        b.draw(screen, status.global_ticks)
 
     remove_items = []
     remove_executors = []
 
     # run executors
     for (i, excutor) in enumerate(status.executors):
-        if not excutor.excute(status, event):
+        if not excutor.excute(status, events):
             remove_executors.append(i)
 
     # update all items
@@ -77,12 +77,12 @@ while status.running:
     
     # draw all static items
     for item in status.static_items.values():
-        item.draw(screen)
+        item.draw(screen, status.global_ticks)
 
     # draw all items
     for i in range(6):
         for item in status.items[i].values():
-            item.draw(screen)
+            item.draw(screen, status.global_ticks)
 
     # calc plant harms
     for i in range(1, 10):
