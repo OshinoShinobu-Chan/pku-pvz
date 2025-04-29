@@ -31,13 +31,13 @@
         "sun": 150,
         "life": 4000
     },
-    "plant5": {
-        "name": "plant5",
-        "description": "这里是plant5的介绍",
-        "json_path": "./configs/plant_cards/plant5.json",
-        "cold_time": 5,
-        "sun": 50,
-        "life": 1000
+    "dihuang": {
+        "name": "dihuang",
+        "description": "地黄",
+        "json_path": "./configs/plant_cards/dihuang.json",
+        "cold_time": 20,
+        "sun": 25,
+        "life": 300
     },
     "plant6": {
         "name": "plant6",

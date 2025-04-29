@@ -27,6 +27,8 @@ class Item:
                                 config["image_paths"]["normal"]
                             )
                         ).convert_alpha(), self.size)
+        self.animation = []
+        self.animation_index = 0
 
     def update(self, event, status):
         '''
@@ -35,4 +37,7 @@ class Item:
         pass
 
     def draw(self, surface):
+        if len(self.animation) > 0:
+            self.image = self.animation[self.animation_index]
+            self.animation_index = (self.animation_index + 1) % len(self.animation)
         surface.blit(self.image, self.rect)

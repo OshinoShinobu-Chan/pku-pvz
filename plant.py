@@ -57,11 +57,14 @@ class Plant(Item):
                 return self.plant(status)
         return True
 
+    def remove(self, status):
+        status.planted_plant[self.index[0]][self.index[1]] = None
+        zombie_grid = plant_grid_to_zombie_grid(self.index)
+        status.zombie_can_move[zombie_grid[0]][zombie_grid[1]] = True
+
     def check_life(self, event, status):
         if self.life <= 0:
-            status.planted_plant[self.index[0]][self.index[1]] = None
-            zombie_grid = plant_grid_to_zombie_grid(self.index)
-            status.zombie_can_move[zombie_grid[0]][zombie_grid[1]] = True
+            self.remove(status)
             return False
         return True
     
