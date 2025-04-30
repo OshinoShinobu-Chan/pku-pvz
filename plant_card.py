@@ -9,6 +9,7 @@ from plants.dongqingweimao import DongQingWeiMao
 from plants.dihuang import DiHuang
 from plants.banzhongcao import BanZhongCao
 from plants.huangcimei import HuangCiMei
+from plants.li import Li
 
 class PlantCardStatus(Enum):
     NORMAL = auto(),
@@ -86,6 +87,17 @@ def on_click_wrapper(name, plant, json_path, plant_name):
                 )
             case "huangcimei":
                 p = HuangCiMei(
+                    pos=plant.pos,
+                    json_path=json_path,
+                    name=plant.name,
+                    tick=status.global_ticks,
+                    life=plant.life,
+                    sun=plant.sun,
+                    to_cold_time=plant.to_cold_time,
+                    item_name=name + "_" + str(status.planted_plant_cnt)
+                )
+            case "li":
+                p = Li(
                     pos=plant.pos,
                     json_path=json_path,
                     name=plant.name,
@@ -181,6 +193,15 @@ class PlantCard(Button):
                                         sun=sun,
                                         to_cold_time=to_cold_time_wrapper(self),
                                         item_name="huangcimei")
+            case "li":
+                self.plant = Li(pos=pos,
+                                        json_path=json_path,
+                                        name="planted_" + plant_name,
+                                        tick=start_tick,
+                                        life=life,
+                                        sun=sun,
+                                        to_cold_time=to_cold_time_wrapper(self),
+                                        item_name="li")
             case _:
                 self.plant = Plant(pos=pos, 
                                 json_path=json_path, 

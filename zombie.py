@@ -14,6 +14,7 @@ class Zombie(Item):
                             (self.rect.centery - ZOMBIE_AREA.top) // GRID_SIZE[1]]
         self.can_move = True
         self.item_name = item_name
+        self.interval = 3
         
     def remove(self, status):
         # move left
@@ -56,7 +57,7 @@ class Zombie(Item):
             return False
         
         # normal move, check tick first
-        if status.global_ticks % 3 != 0:
+        if status.global_ticks % self.interval != 0:
             return True
         self.can_move = self.check_move(status)
         self.move(status)

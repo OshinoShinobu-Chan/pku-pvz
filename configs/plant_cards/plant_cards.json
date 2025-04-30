@@ -55,12 +55,12 @@
         "sun": 200,
         "life": 3000
     },
-    "plant8": {
-        "name": "plant8",
-        "description": "这里是plant8的介绍",
-        "json_path": "./configs/plant_cards/plant8.json",
+    "li": {
+        "name": "li",
+        "description": "李",
+        "json_path": "./configs/plant_cards/li.json",
         "cold_time": 5,
         "sun": 50,
-        "life": 1000
+        "life": 500
     }
 }

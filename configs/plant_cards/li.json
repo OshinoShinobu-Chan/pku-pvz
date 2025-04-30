@@ -1,0 +1,9 @@
+{
+  "size": [100, 120],
+  "image_paths": {
+    "normal": "./resources/plant_cards/li.png",
+    "focus": "./resources/plant_cards/li_dark.png",
+    "click": "./resources/plant_cards/li_dark.png"
+  },
+  "attack_animation": ["./resources/plant_cards/li.png"]
+}
