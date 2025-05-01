@@ -1,0 +1,7 @@
+{
+    "size": [40, 40],
+    "image_paths": {
+        "normal": "./resources/statics/lamei_bullet.png"
+    },
+    "attack_animation": ["./resources/statics/lamei_bullet.png"]
+}

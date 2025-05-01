@@ -1,0 +1,9 @@
+{
+  "size": [100, 120],
+  "image_paths": {
+    "normal": "./resources/plant_cards/lamei.png",
+    "focus": "./resources/plant_cards/lamei_dark.png",
+    "click": "./resources/plant_cards/lamei_dark.png"
+  },
+  "attack_animation": ["./resources/plant_cards/lamei.png"]
+}

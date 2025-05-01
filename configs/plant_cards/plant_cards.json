@@ -62,5 +62,13 @@
         "cold_time": 5,
         "sun": 50,
         "life": 500
+    },
+    "lamei": {
+        "name": "lamei",
+        "description": "腊梅",
+        "json_path": "./configs/plant_cards/lamei.json",
+        "cold_time": 7.5,
+        "sun": 125,
+        "life": 500
     }
 }
