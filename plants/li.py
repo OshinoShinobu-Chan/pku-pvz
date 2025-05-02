@@ -11,6 +11,7 @@ class Li(Plant):
         self.last_attack_time = tick
         self.attack_interval = 180
         self.is_attack = False
+        self._aim = None
         seed()
 
         with open(resource_path(json_path), "r") as f:
@@ -31,8 +32,7 @@ class Li(Plant):
         return None
 
     def attack(self, status):
-        aim = self.aim(status)
-        print("aim: " + str(aim))
+        aim = self._aim
         if aim is None:
             return
         aim = [aim[0][0] - 120 // aim[1], aim[0][1]]
@@ -67,6 +67,9 @@ class Li(Plant):
             self.is_attack = False
             return super().check_life(event, status)
         if status.global_ticks - self.last_attack_time >= self.attack_interval:
+            self._aim = self.aim(status)
+            if self._aim is None:
+                return super().check_life(event, status)
             self.animation = self.attack_animation
             self.is_attack = True
             self.last_attack_time = status.global_ticks

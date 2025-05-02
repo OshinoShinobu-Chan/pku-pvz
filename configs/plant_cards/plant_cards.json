@@ -51,7 +51,7 @@
         "name": "huangcimei",
         "description": "黄刺玫",
         "json_path": "./configs/plant_cards/huangcimei.json",
-        "cold_time": 30,
+        "cold_time": 15,
         "sun": 200,
         "life": 3000
     },
@@ -69,6 +69,14 @@
         "json_path": "./configs/plant_cards/lamei.json",
         "cold_time": 7.5,
         "sun": 125,
+        "life": 500
+    },
+    "suanzaojianongpao": {
+        "name": "suanzaojianongpao",
+        "description": "酸枣加农炮",
+        "json_path": "./configs/plant_cards/suanzaojianongpao.json",
+        "cold_time": 30,
+        "sun": 50,
         "life": 500
     }
 }
