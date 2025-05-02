@@ -1,0 +1,7 @@
+{
+    "size": [30, 20],
+    "image_paths": {
+        "normal": "./resources/statics/xiaofeng.png"
+    },
+    "attack_animation": ["./resources/statics/xiaofeng.png"]
+}

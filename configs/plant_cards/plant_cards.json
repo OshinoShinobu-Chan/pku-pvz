@@ -76,7 +76,15 @@
         "description": "酸枣加农炮",
         "json_path": "./configs/plant_cards/suanzaojianongpao.json",
         "cold_time": 30,
-        "sun": 50,
+        "sun": 400,
         "life": 500
+    },
+    "heidanshu": {
+        "name": "heidanshu",
+        "description": "黑弹树",
+        "json_path": "./configs/plant_cards/heidanshu.json",
+        "cold_time": 30,
+        "sun": 50,
+        "life": 100
     }
 }

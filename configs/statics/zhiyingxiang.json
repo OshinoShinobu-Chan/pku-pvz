@@ -1,0 +1,7 @@
+{
+    "size": [60, 40],
+    "image_paths": {
+        "normal": "./resources/statics/zhiyingxiang.png"
+    },
+    "attack_animation": ["./resources/statics/zhiyingxiang.png"]
+}
