@@ -69,6 +69,3 @@ class SuanZaoBullet(Bullet):
             return True
         self.move(status)
         return True
-
-
-

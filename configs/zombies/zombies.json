@@ -19,5 +19,12 @@
         "json_path": "./configs/zombies/shachenbaojiangshi.json",
         "diffculty": 1,
         "life": 270
+    },
+    "lanjiaojiangshi": {
+        "name": "lanjiaojiangshi",
+        "description": "蓝脚僵尸",
+        "json_path": "./configs/zombies/lanjiaojiangshi.json",
+        "diffculty": 1,
+        "life": 770
     }
 }

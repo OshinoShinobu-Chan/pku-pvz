@@ -54,7 +54,7 @@ class Status:
         self.bullets = [[{} for _ in range(5)] for _ in range(9)]
         self.bullets_cnt = 0
         self.suanzao_aim = None
-        self.season = Season.SPRING
+        self.season = Season.WINTER
         self.victory = None
         import json
         with open(resource_path("./configs/plant_cards/plant_cards.json"), "r", encoding="utf8") as f:

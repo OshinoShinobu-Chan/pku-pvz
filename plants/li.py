@@ -74,7 +74,3 @@ class Li(Plant):
             self.is_attack = True
             self.last_attack_time = status.global_ticks
         return super().check_life(event, status)
-            
-
-        
-

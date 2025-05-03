@@ -5,6 +5,8 @@ from status import PLANT_AREA
 import json
 from utils import plant_grid_to_zombie_grid
 
+QIAO_MU = ["heidanshu", "li", "suanzao", "lamei"]
+
 class Plant(Item):
     def __init__(self, pos, json_path, name, tick, life, sun, to_cold_time, item_name):
         super().__init__(pos, json_path, name)

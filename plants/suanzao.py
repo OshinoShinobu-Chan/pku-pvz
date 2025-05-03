@@ -86,7 +86,4 @@ class SuanZao(Plant):
             self.status = 1
             self.image = self.dark_image
         return super().check_life(event, status)
-            
-
-
-                    
+           

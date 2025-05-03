@@ -3,6 +3,7 @@ from test_zombie import TestZombie
 from status import ZOMBIE_AREA, Season
 from zombies.shigongjiangshi import ShiGongJiangShi
 from zombies.shachenbaojiangshi import ShaChenBaoJiangShi
+from zombies.lanjiaojiangshi import LanJiaoJiangShi
 from victory import VictoryChecker
 
 class ZombieSpawner:
@@ -10,7 +11,7 @@ class ZombieSpawner:
         self.start_tick = start_tick
         self.round = round
         self.plan = 50 if round % 4 != 2 else 100
-        self.wait = 240 if self.plan == 50 else 120
+        self.wait = 240 if self.plan == 50 else 90
         self.finish = False
         seed()
 
@@ -39,12 +40,13 @@ class ZombieSpawner:
                     # return "toucaijiangshi"
                     return "shigongjiangshi"
                 case Season.WINTER:
-                    # return "lanjiaojiangshi"
-                    return "shigongjiangshi"
+                    return "lanjiaojiangshi"
 
     def excute(self, status, event):
         if (status.global_ticks - self.start_tick) % self.wait == 0:
             zombie_name = self.random_zombie(status) if self.plan < 100 else "zhihuijiangshi"
+            if zombie_name == "zhihuijiangshi":
+                self.plan -= 1
             if zombie_name is None:
                 status.executors.append(ZombieChecker(status.global_ticks))
                 return False
@@ -84,6 +86,16 @@ class ZombieSpawner:
                         life=status.zombie_configs[zombie_name]["life"],
                         item_name=item_name,
                     )
+                case "lanjiaojiangshi":
+                    status.winter_zombie_cnt += 1
+                    z = LanJiaoJiangShi(
+                        pos=pos,
+                        json_path=status.zombie_configs[zombie_name]["json_path"],
+                        name=item_name,
+                        tick=status.global_ticks,
+                        life=status.zombie_configs[zombie_name]["life"],
+                        item_name=item_name,
+                    )
                 case _:
                     z = TestZombie(
                         pos=pos,
@@ -112,12 +124,12 @@ class ZombieChecker:
                 status.executors.append(VictoryChecker())
                 return False
             status.executors.append(ZombieSpawner(status.global_ticks, status.zombie_round))
-            status.zombie_round += 1
-            if status.zombie_round == 4:
+            if status.zombie_round == 3:
+                status.season = Season.SPRING
+            elif status.zombie_round == 7:
                 status.season = Season.SUMMER
-            elif status.zombie_round == 8:
+            elif status.zombie_round == 11:
                 status.season = Season.AUTUMN
-            elif status.zombie_round == 12:
-                status.season = Season.WINTER
+            status.zombie_round += 1
             return False
         return True
