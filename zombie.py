@@ -1,13 +1,14 @@
 from item import Item
 from status import ZOMBIE_AREA, GRID_SIZE
 from utils import zombie_grid_to_plant_grid
+from victory import Victory
 
 class Zombie(Item):
     def __init__(self, pos, json_path, name, tick, life, item_name):
         super().__init__(pos, json_path, name)
         self.start_tick = tick
         self.life = life
-        self.speed = -1
+        self.speed = -10
         self.left_index = [(self.rect.left - ZOMBIE_AREA.left) // GRID_SIZE[0],
                            (self.rect.centery - ZOMBIE_AREA.top) // GRID_SIZE[1]]
         self.right_index = [(self.rect.right - ZOMBIE_AREA.left) // GRID_SIZE[0],
@@ -42,7 +43,16 @@ class Zombie(Item):
         if self.left_index[0] >= 0:
             return status.zombie_can_move[self.left_index[0]][self.left_index[1]]
         return True
-    
+
+    def check_lose(self, status):
+        if not self.rect.colliderect(ZOMBIE_AREA) and status.victory is None:
+            status.executors.append(Victory(status.global_ticks, False))
+            status.victory = False
+            return True
+        elif not self.rect.colliderect(ZOMBIE_AREA):
+            return True
+        return False
+        
     def harm(self, status, harm_num=None):
         if harm_num is None:
             self.life = 0

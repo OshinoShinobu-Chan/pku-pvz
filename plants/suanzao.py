@@ -61,7 +61,6 @@ class SuanZao(Plant):
             status.suanzao_aim = None
         elif self.status == 2 and status.suanzao_aim is not None:
             self.aim = status.suanzao_aim
-            print("aim: " + str(self.aim))
             status.suanzao_aim = None
             self.status = 3
             self.animation = self.attack_animation

@@ -6,6 +6,7 @@ from status import GamePhase
 from random import randint
 from utils import resource_path
 from zombie_spawner import ZombieChecker
+from victory import Victory
 
 class GameBackground:
     def excute(self, status, event):
@@ -48,7 +49,7 @@ class GameStart:
             index = [i // 6, i % 6]
             pos = [status.screen.get_width() / 5 + ((index[1] - 2) * 2 + 1) * 50,
                    status.screen.get_height() * 2 / 5 + (index[0] * 2 + 1) * 60]
-            status.items[5][plant_card["name"] + "_card"] = (Button(pos=pos, 
+            status.items[4][plant_card["name"] + "_card"] = (Button(pos=pos, 
                                        on_click=click_plant_card_wrapper(plant_card["name"], plant_card["json_path"]),
                                        json_path=resource_path(plant_card["json_path"]),
                                        name=plant_card["name"] + "_card",

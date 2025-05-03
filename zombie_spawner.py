@@ -1,16 +1,15 @@
-from random import randrange, seed
+from random import randrange, seed, randint
 from test_zombie import TestZombie
-from status import ZOMBIE_AREA
+from status import ZOMBIE_AREA, Season
 from zombies.shigongjiangshi import ShiGongJiangShi
+from victory import VictoryChecker
 
 class ZombieSpawner:
     def __init__(self, start_tick, round):
         self.start_tick = start_tick
         self.round = round
-        self.zombie_plan = 50 if round % 4 != 2 else 100
-        self.difficulty_cnt = [0 for _ in range(3)]
-        self.difficulty_plan = [20, 20, 10] if self.zombie_plan == 50 else [40, 40, 20]
-        self.wait = 240 if self.zombie_plan == 50 else 120
+        self.plan = 50 if round % 4 != 2 else 100
+        self.wait = 240 if self.plan == 50 else 120
         self.finish = False
         seed()
 
@@ -18,23 +17,36 @@ class ZombieSpawner:
         return randrange(0, 5)
 
     def random_zombie(self, status):
-        enable_difficulty = [i for i in range(3) 
-                            if self.difficulty_cnt[i] < self.difficulty_plan[i] and
-                            len(status.zombie_difficulties[i]) != 0]
-        if len(enable_difficulty) == 0:
+        if self.plan == 0:
             return None
-        difficulty = enable_difficulty[randrange(0, len(enable_difficulty))]
-        self.difficulty_cnt[difficulty] += 1
-        return status.zombie_difficulties[difficulty][randrange(0, len(status.zombie_difficulties[difficulty]))]
+        if self.plan == 1:
+            self.plan = 0
+            return "shigongjiangshi"
+        r = randint(0, 7)
+        if r % 7 <= 3:
+            self.plan -= 1
+            return "shigongjiangshi"
+        else:
+            self.plan -= 2
+            match status.season:
+                case Season.SPRING:
+                    return "shachenbaojiangshi"
+                case Season.SUMMER:
+                    return "xionghaizijiangshi"
+                case Season.AUTUMN:
+                    return "toucaijiangshi"
+                case Season.WINTER:
+                    return "lanjiaojiangshi"
 
     def excute(self, status, event):
         if (status.global_ticks - self.start_tick) % self.wait == 0:
-            zombie_name = self.random_zombie(status)
+            zombie_name = self.random_zombie(status) if self.plan < 100 else "zhihuijiangshi"
             if zombie_name is None:
                 status.executors.append(ZombieChecker(status.global_ticks))
                 return False
             index = [10, self.random_pos()]
             
+            zombie_name = "shigongjiangshi"
             item_name = zombie_name + "_" + str(status.zombies_cnt)
             status.zombies_cnt += 1
             pos = [
@@ -75,8 +87,16 @@ class ZombieChecker:
             return True
         if status.zombies_total_life < status.zombies_origin_total_life * 0.3 or\
             (status.global_ticks - self.start_tick) // 60 >= 15:
+            if status.zombie_round >= 16:
+                status.executors.append(VictoryChecker())
+                return False
             status.executors.append(ZombieSpawner(status.global_ticks, status.zombie_round))
-            status.season = status.zombie_round // 4
             status.zombie_round += 1
+            if status.zombie_round == 4:
+                status.season = Season.SUMMER
+            elif status.zombie_round == 8:
+                status.season = Season.AUTUMN
+            elif status.zombie_round == 12:
+                status.season = Season.WINTER
             return False
         return True

@@ -10,6 +10,8 @@ class ShiGongJiangShi(Zombie):
         if self.life <= 0:
             super().remove(status)
             return False
+        if self.check_lose(status):
+            return True
         if self.life <= self.real_life:
             self.interval = 3
 

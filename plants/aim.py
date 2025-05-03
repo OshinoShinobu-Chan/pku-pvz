@@ -10,10 +10,8 @@ class Aim(Plant):
         self.on_mouse(status)
         for e in event:
             if e.type == pygame.MOUSEBUTTONUP and e.button == 1:
-                print("mouse_pos: " + str(status.mouse_pos))
                 if PLANT_AREA.collidepoint(status.mouse_pos):
                     status.suanzao_aim = [status.mouse_pos[0], status.mouse_pos[1]]
-                    print("aim: " + str(status.suanzao_aim))
                 return False
         return True
     

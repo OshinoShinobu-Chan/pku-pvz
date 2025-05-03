@@ -6,8 +6,15 @@ class GamePhase(Enum):
     START = auto()
     GAME_START = auto()
     GAME = auto()
-    GAME_OVER = auto()
+    GAME_WIN = auto()
+    GAME_LOSE = auto()
     END = auto()
+
+class Season(Enum):
+    SPRING = auto()
+    SUMMER = auto()
+    AUTUMN = auto()
+    WINTER = auto()
 
 PLANT_AREA = pygame.Rect(250, 120, 900, 600)
 ZOMBIE_AREA = pygame.Rect(150, 120, 1100, 600)
@@ -31,7 +38,6 @@ class Status:
         self.pause = False
         self.mouse_available = True
         self.mouse = None
-        self.plant_id = 0
         self.sun = 0
         self.planted_plant = [[None for _ in range(5)] for _ in range(9)]
         self.planted_plant_cnt = 0
@@ -45,10 +51,11 @@ class Status:
         self.zombie_round = 0
         self.zombie_can_move = [[True for _ in range(5)] for _ in range(11)]
         self.winter_zombie_cnt = 0
-        self.season = 0
         self.bullets = [[{} for _ in range(5)] for _ in range(9)]
         self.bullets_cnt = 0
         self.suanzao_aim = None
+        self.season = Season.SPRING
+        self.victory = None
         import json
         with open(resource_path("./configs/plant_cards/plant_cards.json"), "r", encoding="utf8") as f:
             des = json.load(f)
