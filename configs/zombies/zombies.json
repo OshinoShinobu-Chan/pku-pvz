@@ -5,5 +5,19 @@
         "json_path": "./configs/zombies/shigongjiangshi.json",
         "diffculty": 1,
         "life": 320
+    },
+    "zhihuijiangshi": {
+        "name": "zhihuijiangshi",
+        "description": "指挥僵尸",
+        "json_path": "./configs/zombies/zhihuijiangshi.json",
+        "diffculty": 1,
+        "life": 320
+    },
+    "shachenbaojiangshi": {
+        "name": "shachenbaojiangshi",
+        "description": "沙尘暴僵尸",
+        "json_path": "./configs/zombies/shachenbaojiangshi.json",
+        "diffculty": 1,
+        "life": 270
     }
 }

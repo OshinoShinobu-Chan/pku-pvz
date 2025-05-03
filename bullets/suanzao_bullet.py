@@ -19,7 +19,6 @@ class SuanZaoBullet(Bullet):
         speed = sqrt(2 * ACC * (self.pos[1] - m))
         self.para_speed = speed / k
         self.speed = [-self.para_speed, -speed]
-        print(self.speed)
         self.aim = aim
         self.float_pos = [pos[0], pos[1]]
         self.is_attack = False

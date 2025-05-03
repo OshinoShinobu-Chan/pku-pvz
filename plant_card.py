@@ -1,6 +1,7 @@
 from button import Button
 from enum import Enum, auto
 from plant import Plant
+from status import Season
 from test_plant import TestPlant
 from plants.zhonghuaxiaokumai import ZhongHuaXiaoKuMai
 from plants.baojingxiaokumai import BaoJingXiaoKuMai
@@ -175,6 +176,7 @@ class PlantCard(Button):
                                         sun=sun,
                                         to_cold_time=to_cold_time_wrapper(self),
                                         item_name="ZhongHuaXiaoKuMai")
+                self.season = None
             case "baojingxiaokumai":
                 self.plant = BaoJingXiaoKuMai(pos=pos,
                                         json_path=json_path,
@@ -184,6 +186,7 @@ class PlantCard(Button):
                                         sun=sun,
                                         to_cold_time=to_cold_time_wrapper(self),
                                         item_name="BaoJingXiaoKuMai")
+                self.season = None
             case "luomo":
                 self.plant = LuoMo(pos=pos,
                                         json_path=json_path,
@@ -193,6 +196,7 @@ class PlantCard(Button):
                                         sun=sun,
                                         to_cold_time=to_cold_time_wrapper(self),
                                         item_name="luomo")
+                self.season = None
             case "dongqingweimao":
                 self.plant = DongQingWeiMao(pos=pos,
                                         json_path=json_path,
@@ -202,6 +206,7 @@ class PlantCard(Button):
                                         sun=sun,
                                         to_cold_time=to_cold_time_wrapper(self),
                                         item_name="dongqingweimao")
+                self.season = None
             case "dihuang":
                 self.plant = DiHuang(pos=pos,
                                         json_path=json_path,
@@ -211,6 +216,7 @@ class PlantCard(Button):
                                         sun=sun,
                                         to_cold_time=to_cold_time_wrapper(self),
                                         item_name="dihuang")
+                self.season = None
             case "banzhongcao":
                 self.plant = BanZhongCao(pos=pos,
                                         json_path=json_path,
@@ -220,6 +226,7 @@ class PlantCard(Button):
                                         sun=sun,
                                         to_cold_time=to_cold_time_wrapper(self),
                                         item_name="banzhongcao")
+                self.season = None
             case "huangcimei":
                 self.plant = HuangCiMei(pos=pos,
                                         json_path=json_path,
@@ -229,6 +236,7 @@ class PlantCard(Button):
                                         sun=sun,
                                         to_cold_time=to_cold_time_wrapper(self),
                                         item_name="huangcimei")
+                self.season = Season.SPRING
             case "li":
                 self.plant = Li(pos=pos,
                                         json_path=json_path,
@@ -238,6 +246,7 @@ class PlantCard(Button):
                                         sun=sun,
                                         to_cold_time=to_cold_time_wrapper(self),
                                         item_name="li")
+                self.season = Season.SUMMER
             case "lamei":
                 self.plant = LaMei(pos=pos,
                                         json_path=json_path,
@@ -247,6 +256,7 @@ class PlantCard(Button):
                                         sun=sun,
                                         to_cold_time=to_cold_time_wrapper(self),
                                         item_name="lamei")
+                self.season = Season.WINTER
             case "suanzaojianongpao":
                 self.plant = SuanZao(pos=pos,
                                         json_path=json_path,
@@ -256,6 +266,7 @@ class PlantCard(Button):
                                         sun=sun,
                                         to_cold_time=to_cold_time_wrapper(self),
                                         item_name="suanzaojianongpao")
+                self.season = Season.AUTUMN
             case "heidanshu":
                 self.plant = HeiDanShu(pos=pos,
                                         json_path=json_path,
@@ -265,6 +276,7 @@ class PlantCard(Button):
                                         sun=sun,
                                         to_cold_time=to_cold_time_wrapper(self),
                                         item_name="heidanshu")
+                self.season = None
             case _:
                 self.plant = Plant(pos=pos, 
                                 json_path=json_path, 
@@ -274,6 +286,7 @@ class PlantCard(Button):
                                 sun=sun,
                                 to_cold_time=to_cold_time_wrapper(self),
                                 item_name="template_plant")
+                self.season = None
         super().__init__(pos, on_click_wrapper(name, self.plant, json_path, plant_name), json_path, name)
         self.status = PlantCardStatus.NORMAL
         self.cold_time = cold_time * 60
@@ -282,18 +295,19 @@ class PlantCard(Button):
         self.start_tick = start_tick
         self.life = life
 
-    def check_enable_(self, sun, on_mouse):
-        return self.status != PlantCardStatus.COLDTIME and sun >= self.sun and on_mouse is None
+    def check_enable_(self, sun, on_mouse, season):
+        return self.status != PlantCardStatus.COLDTIME and\
+                sun >= self.sun and\
+                on_mouse is None and\
+                (self.season is None or\
+                self.season == season)
     
     def update(self, event, status):
-        # if (status.global_ticks - self.start_tick) % 3 != 0:
-        #     super().update(event, status)
-        #     return True
         if self.status == PlantCardStatus.COLDTIME:
             self.already_cold_time += 1
         if self.already_cold_time >= self.cold_time:
             self.status = PlantCardStatus.NORMAL
             self.already_cold_time = 0
-        self.enable = self.check_enable_(status.sun, status.mouse)
+        self.enable = self.check_enable_(status.sun, status.mouse, status.season)
         super().update(event, status)
         return True

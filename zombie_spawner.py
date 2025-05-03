@@ -2,6 +2,7 @@ from random import randrange, seed, randint
 from test_zombie import TestZombie
 from status import ZOMBIE_AREA, Season
 from zombies.shigongjiangshi import ShiGongJiangShi
+from zombies.shachenbaojiangshi import ShaChenBaoJiangShi
 from victory import VictoryChecker
 
 class ZombieSpawner:
@@ -32,11 +33,14 @@ class ZombieSpawner:
                 case Season.SPRING:
                     return "shachenbaojiangshi"
                 case Season.SUMMER:
-                    return "xionghaizijiangshi"
+                    # return "xionghaizijiangshi"
+                    return "shigongjiangshi"
                 case Season.AUTUMN:
-                    return "toucaijiangshi"
+                    # return "toucaijiangshi"
+                    return "shigongjiangshi"
                 case Season.WINTER:
-                    return "lanjiaojiangshi"
+                    # return "lanjiaojiangshi"
+                    return "shigongjiangshi"
 
     def excute(self, status, event):
         if (status.global_ticks - self.start_tick) % self.wait == 0:
@@ -46,7 +50,6 @@ class ZombieSpawner:
                 return False
             index = [10, self.random_pos()]
             
-            zombie_name = "shigongjiangshi"
             item_name = zombie_name + "_" + str(status.zombies_cnt)
             status.zombies_cnt += 1
             pos = [
@@ -56,6 +59,24 @@ class ZombieSpawner:
             match zombie_name:
                 case "shigongjiangshi":
                     z = ShiGongJiangShi(
+                        pos=pos,
+                        json_path=status.zombie_configs[zombie_name]["json_path"],
+                        name=item_name,
+                        tick=status.global_ticks,
+                        life=status.zombie_configs[zombie_name]["life"],
+                        item_name=item_name,
+                    )
+                case "zhihuijiangshi":
+                    z = ShiGongJiangShi(
+                        pos=pos,
+                        json_path=status.zombie_configs[zombie_name]["json_path"],
+                        name=item_name,
+                        tick=status.global_ticks,
+                        life=status.zombie_configs[zombie_name]["life"],
+                        item_name=item_name,
+                    )
+                case "shachenbaojiangshi":
+                    z = ShaChenBaoJiangShi(
                         pos=pos,
                         json_path=status.zombie_configs[zombie_name]["json_path"],
                         name=item_name,

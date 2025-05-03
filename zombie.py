@@ -8,7 +8,7 @@ class Zombie(Item):
         super().__init__(pos, json_path, name)
         self.start_tick = tick
         self.life = life
-        self.speed = -10
+        self.speed = -1
         self.left_index = [(self.rect.left - ZOMBIE_AREA.left) // GRID_SIZE[0],
                            (self.rect.centery - ZOMBIE_AREA.top) // GRID_SIZE[1]]
         self.right_index = [(self.rect.right - ZOMBIE_AREA.left) // GRID_SIZE[0],

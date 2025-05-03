@@ -23,4 +23,4 @@ class ShiGongJiangShi(Zombie):
         return True
 
     def attack(self, status):
-        status.zombies_harm[self.left_index[0]][self.left_index[1]] += 1
+        status.zombies_harm[self.left_index[0]][self.left_index[1]] += 3
