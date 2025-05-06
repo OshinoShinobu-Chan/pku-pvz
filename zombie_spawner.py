@@ -3,6 +3,7 @@ from test_zombie import TestZombie
 from status import ZOMBIE_AREA, Season
 from zombies.shigongjiangshi import ShiGongJiangShi
 from zombies.shachenbaojiangshi import ShaChenBaoJiangShi
+from zombies.xionghaizijiangshi import XiongHaiZiJiangShi
 from zombies.lanjiaojiangshi import LanJiaoJiangShi
 from victory import VictoryChecker
 
@@ -34,13 +35,13 @@ class ZombieSpawner:
                 case Season.SPRING:
                     return "shachenbaojiangshi"
                 case Season.SUMMER:
-                    # return "xionghaizijiangshi"
-                    return "shigongjiangshi"
+                    return "xionghaizijiangshi"
                 case Season.AUTUMN:
                     # return "toucaijiangshi"
                     return "shigongjiangshi"
                 case Season.WINTER:
-                    return "lanjiaojiangshi"
+                    # return "lanjiaojiangshi"
+                    return "xionghaizijiangshi"
 
     def excute(self, status, event):
         if (status.global_ticks - self.start_tick) % self.wait == 0:
@@ -79,6 +80,15 @@ class ZombieSpawner:
                     )
                 case "shachenbaojiangshi":
                     z = ShaChenBaoJiangShi(
+                        pos=pos,
+                        json_path=status.zombie_configs[zombie_name]["json_path"],
+                        name=item_name,
+                        tick=status.global_ticks,
+                        life=status.zombie_configs[zombie_name]["life"],
+                        item_name=item_name,
+                    )
+                case "xionghaizijiangshi":
+                    z = XiongHaiZiJiangShi(
                         pos=pos,
                         json_path=status.zombie_configs[zombie_name]["json_path"],
                         name=item_name,

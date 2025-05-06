@@ -19,10 +19,14 @@ class Zombie(Item):
         
     def remove(self, status):
         # move left
-        if self.item_name in status.zombies[self.left_index[0]][self.left_index[1]]:
+        if self.left_index[0] >= 0 and self.left_index[0] < 11 and\
+              self.left_index[1] >= 0 and self.left_index[1] < 5 and\
+              self.item_name in status.zombies[self.left_index[0]][self.left_index[1]]:
             del status.zombies[self.left_index[0]][self.left_index[1]][self.item_name]
         # move right
-        if self.item_name in status.zombies[self.right_index[0]][self.right_index[1]]:
+        if self.right_index[0] >= 0 and self.right_index[0] < 11 and\
+              self.right_index[1] >= 0 and self.right_index[1] < 5 and\
+              self.item_name in status.zombies[self.right_index[0]][self.right_index[1]]:
             del status.zombies[self.right_index[0]][self.right_index[1]][self.item_name]
     
     def move(self, status):

@@ -1,0 +1,8 @@
+{
+    "size": [50, 120],
+    "image_paths": {
+        "normal": "./resources/zombies/wacaijiangshi.png"
+    },
+    "animation": ["./resources/zombies/wacaijiangshi.png"],
+    "diffculty": 2
+}

@@ -26,5 +26,12 @@
         "json_path": "./configs/zombies/lanjiaojiangshi.json",
         "diffculty": 1,
         "life": 770
+    },
+    "xionghaizijiangshi": {
+        "name": "xionghaizijiangshi",
+        "description": "熊孩子僵尸",
+        "json_path": "./configs/zombies/xionghaizijiangshi.json",
+        "diffculty": 1,
+        "life": 300
     }
 }

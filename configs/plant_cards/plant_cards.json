@@ -60,7 +60,7 @@
         "description": "李",
         "json_path": "./configs/plant_cards/li.json",
         "cold_time": 5,
-        "sun": 50,
+        "sun": 300,
         "life": 500
     },
     "lamei": {

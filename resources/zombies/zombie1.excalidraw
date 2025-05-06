@@ -6,8 +6,8 @@
     {
       "id": "Am6rMohRiSk9sGGZVjxTS",
       "type": "rectangle",
-      "x": 343.1712951660156,
-      "y": 151.04165649414062,
+      "x": 342.9422149658203,
+      "y": 151.2164764404297,
       "width": 111.62652587890625,
       "height": 194.41732788085938,
       "angle": 0,
@@ -25,8 +25,8 @@
         "type": 3
       },
       "seed": 629708652,
-      "version": 99,
-      "versionNonce": 224685140,
+      "version": 100,
+      "versionNonce": 979546736,
       "isDeleted": false,
       "boundElements": [
         {
@@ -34,15 +34,15 @@
           "id": "F6VF1xIYVaAxHWfIihAT2"
         }
       ],
-      "updated": 1743861826612,
+      "updated": 1746280224789,
       "link": null,
       "locked": false
     },
     {
       "id": "F6VF1xIYVaAxHWfIihAT2",
       "type": "text",
-      "x": 362.98455810546875,
-      "y": 203.2503204345703,
+      "x": 362.75547790527344,
+      "y": 203.42514038085938,
       "width": 72,
       "height": 90,
       "angle": 0,
@@ -58,20 +58,20 @@
       "index": "a1",
       "roundness": null,
       "seed": 2504428,
-      "version": 276,
-      "versionNonce": 2030333176,
+      "version": 350,
+      "versionNonce": 1111680112,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1746276062857,
+      "updated": 1746280224789,
       "link": null,
       "locked": false,
-      "text": "指挥\n僵尸",
+      "text": "挖菜\n僵尸",
       "fontSize": 36,
       "fontFamily": 5,
       "textAlign": "center",
       "verticalAlign": "middle",
       "containerId": "Am6rMohRiSk9sGGZVjxTS",
-      "originalText": "指挥僵尸",
+      "originalText": "挖菜僵尸",
       "autoResize": true,
       "lineHeight": 1.25
     }
