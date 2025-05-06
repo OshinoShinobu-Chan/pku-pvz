@@ -129,7 +129,7 @@ class ZombieChecker:
             return True
         if status.zombies_total_life < status.zombies_origin_total_life * 0.3 or\
             (status.global_ticks - self.start_tick) // 60 >= 15:
-            if status.zombie_round >= 16:
+            if status.zombie_round >= 15:
                 status.executors.append(VictoryChecker())
                 return False
             status.executors.append(ZombieSpawner(status.global_ticks, status.zombie_round))
