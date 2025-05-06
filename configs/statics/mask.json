@@ -1,0 +1,6 @@
+{
+    "size": [100, 120],
+    "image_paths": {
+        "normal": "./resources/statics/mask.png"
+    }
+}

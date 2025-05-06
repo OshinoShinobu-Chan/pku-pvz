@@ -2,6 +2,9 @@ from button import Button
 from enum import Enum, auto
 from plant import Plant
 from status import Season
+from static import Static
+from text import Text
+from utils import resource_path
 from test_plant import TestPlant
 from plants.zhonghuaxiaokumai import ZhongHuaXiaoKuMai
 from plants.baojingxiaokumai import BaoJingXiaoKuMai
@@ -165,7 +168,8 @@ def to_cold_time_wrapper(card):
 
 
 class PlantCard(Button):
-    def __init__(self, pos, json_path, name, cold_time, sun, start_tick, life, plant_name):
+    def __init__(self, pos, json_path, name, cold_time, sun, start_tick, life, plant_name, index=0):
+        self.index = index
         match plant_name:
             case "zhonghuaxiaokumai":
                 self.plant = ZhongHuaXiaoKuMai(pos=pos, 
@@ -294,6 +298,8 @@ class PlantCard(Button):
         self.already_cold_time = 0  # Time that already in cold status
         self.start_tick = start_tick
         self.life = life
+        self.masked = False
+        self.cold_texted = False
 
     def check_enable_(self, sun, on_mouse, season):
         return self.status != PlantCardStatus.COLDTIME and\
@@ -303,11 +309,42 @@ class PlantCard(Button):
                 self.season == season)
     
     def update(self, event, status):
-        if self.status == PlantCardStatus.COLDTIME:
+        if self.status == PlantCardStatus.COLDTIME and not self.cold_texted:
             self.already_cold_time += 1
+            left_cold_time_ms = (self.cold_time - self.already_cold_time) / 60
+            self.delta = 10 if len(f"{left_cold_time_ms:.1f}") == 3 else 0
+            status.items[5]["cold_time_" + str(self.index)] = Text(
+                pos=[self.rect.centerx + self.delta, self.rect.centery - 10],
+                json_path=resource_path("./configs/texts/cold_time.json"),
+                name="cold_time",
+                text=f"{left_cold_time_ms:.1f}",
+                font_size=40
+            )
+            self.cold_texted = True
+        if self.status == PlantCardStatus.COLDTIME and self.cold_texted:
+            self.already_cold_time += 1
+            left_cold_time_ms = (self.cold_time - self.already_cold_time) / 60
+            if self.delta == 0 and len(f"{left_cold_time_ms:.1f}") == 3:
+                self.delta = 10
+                status.items[5]["cold_time_" + str(self.index)].pos[0] += 10
+                status.items[5]["cold_time_" + str(self.index)].rect.move_ip(10, 0)
+            status.items[5]["cold_time_" + str(self.index)].set_text(f"{left_cold_time_ms:.1f}")
         if self.already_cold_time >= self.cold_time:
+            del status.items[5]["cold_time_" + str(self.index)]
             self.status = PlantCardStatus.NORMAL
             self.already_cold_time = 0
+            self.cold_texted = False
         self.enable = self.check_enable_(status.sun, status.mouse, status.season)
+        if not self.enable and not self.masked:
+            status.items[5]["mask_" + str(self.index)] = Static(
+                pos=self.rect.center,
+                json_path=resource_path("./configs/statics/mask.json"),
+                name="mask"
+            )
+            self.masked = True
+        if self.enable and self.masked:
+            if "mask_" + str(self.index) in status.items[5]:
+                del status.items[5]["mask_" + str(self.index)]
+            self.masked = False
         super().update(event, status)
         return True

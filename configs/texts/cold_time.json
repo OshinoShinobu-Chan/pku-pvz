@@ -1,0 +1,8 @@
+{
+    "size": [80, 40],
+    "image_paths": {
+        "normal": "./resources/texts/plant-description.png"
+    },
+    "front_color": [0, 0, 0, 200],
+    "back_color": []
+}

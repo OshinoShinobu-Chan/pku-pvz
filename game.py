@@ -167,7 +167,8 @@ class Game:
                         sun=plant_configs[plant]["sun"],
                         start_tick=status.global_ticks,
                         plant_name=plant,
-                        life=plant_configs[plant]["life"])
+                        life=plant_configs[plant]["life"],
+                        index=i)
             # sun card
             status.static_items["sun_card"] = Static(pos=[200, 40],
                                               json_path=resource_path("./configs/statics/sun.json"),
