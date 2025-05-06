@@ -40,8 +40,7 @@ class ZombieSpawner:
                     # return "toucaijiangshi"
                     return "shigongjiangshi"
                 case Season.WINTER:
-                    # return "lanjiaojiangshi"
-                    return "xionghaizijiangshi"
+                    return "lanjiaojiangshi"
 
     def excute(self, status, event):
         if (status.global_ticks - self.start_tick) % self.wait == 0:
