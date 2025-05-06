@@ -27,8 +27,15 @@ class LuoMo(Plant):
                 item_name=bullet_name,
                 attack_time=50
             )
-        if self.status == 3 and status.global_ticks - self.last_attack_time >= self.attack_time:
+        if self.status == 3 and status.global_ticks - self.last_attack_time >= self.attack_time\
+            and self.check_aim(status):
             self.status = 0
+
+    def check_aim(self, status):
+        for i in range(self.index[0] + 1, 11):
+            if len(status.zombies[i][self.index[1]]) > 0:
+                return True
+        return False
     
     def update(self, event, status):
         if self.is_planted and status.global_ticks % 3 == 0:

@@ -37,6 +37,13 @@ class LaMei(Plant):
                 item_name=item_name,
                 attack_time=0
             )
+    
+    def check_aim(self, status):
+        for i in range(11):
+            for j in range(5):
+                if len(status.zombies[i][j]) > 0:
+                    return True
+        return False
 
     def update(self, event, status):
         if self.is_planted:
@@ -45,7 +52,8 @@ class LaMei(Plant):
                 self.animation_index = 0
                 self.is_attack = False
                 self.attack(status)
-            elif not self.is_attack and status.global_ticks - self.last_attack_time >= self.attack_interval:
+            elif not self.is_attack and status.global_ticks - self.last_attack_time >= self.attack_interval\
+                and self.check_aim(status):
                 self.is_attack = True
                 self.last_attack_time = status.global_ticks
                 self.animation = self.attack_animation
