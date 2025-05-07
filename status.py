@@ -44,6 +44,7 @@ class Status:
         self.planted_single_harm = [[0 for _ in range(5)] for _ in range(9)]
         self.planted_aoe_harm = [[0 for _ in range(5)] for _ in range(9)]
         self.zombies = [[{} for _ in range(5)] for _ in range(11)]
+        self.fake_zombies = [[{} for _ in range(5)] for _ in range(11)]
         self.zombies_cnt = 0
         self.zombies_harm = [[0 for _ in range(5)] for _ in range(11)]
         self.zombies_total_life = 0

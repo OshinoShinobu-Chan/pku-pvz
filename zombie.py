@@ -16,6 +16,7 @@ class Zombie(Item):
         self.can_move = True
         self.item_name = item_name
         self.interval = 3
+        self.json_path = json_path
         
     def remove(self, status):
         # move left
@@ -44,6 +45,10 @@ class Zombie(Item):
             status.zombies[self.right_index[0]][self.right_index[1]][self.item_name] = True
 
     def check_move(self, status):
+        if len(status.fake_zombies[self.left_index[0]][self.left_index[1]]) > 0:
+            for fake_zombie in status.fake_zombies[self.left_index[0]][self.left_index[1]]:
+                if self.rect.colliderect(status.items[4][fake_zombie].rect):
+                    return False
         if self.left_index[0] >= 0:
             return status.zombie_can_move[self.left_index[0]][self.left_index[1]]
         return True

@@ -1,7 +1,8 @@
 {
     "size": [50, 120],
     "image_paths": {
-        "normal": "./resources/zombies/shachenbaojiangshi.png"
+        "normal": "./resources/zombies/shachenbaojiangshi.png",
+        "fake": "./resources/zombies/shachenbaojiangshi.png"
     },
     "animation": ["./resources/zombies/shigongjiangshi.png"],
     "diffculty": 2

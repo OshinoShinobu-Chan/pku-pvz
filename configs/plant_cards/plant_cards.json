@@ -86,5 +86,13 @@
         "cold_time": 30,
         "sun": 50,
         "life": 100
+    },
+    "zihuadiding": {
+        "name": "zihuadiding",
+        "description": "早开堇菜&紫花地丁",
+        "json_path": "./configs/plant_cards/zihuadiding.json",
+        "cold_time": 30,
+        "sun": 75,
+        "life": 1
     }
 }
