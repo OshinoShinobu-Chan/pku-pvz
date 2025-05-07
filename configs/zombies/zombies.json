@@ -33,5 +33,12 @@
         "json_path": "./configs/zombies/xionghaizijiangshi.json",
         "diffculty": 1,
         "life": 300
+    },
+    "wacaijiangshi": {
+        "name": "wacaijiangshi",
+        "description": "挖菜僵尸",
+        "json_path": "./configs/zombies/wacaijiangshi.json",
+        "diffculty": 1,
+        "life": 270
     }
 }

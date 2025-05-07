@@ -17,6 +17,7 @@ class Plant(Item):
         self.to_cold_time = to_cold_time
         self.item_name = item_name
         self.can_move = False
+        self.json_path = json_path
     
     def on_mouse(self, status):
         delta = [status.mouse_pos[0] - self.rect.centerx, status.mouse_pos[1] - self.rect.centery]

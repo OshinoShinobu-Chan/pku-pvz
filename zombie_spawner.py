@@ -1,10 +1,11 @@
 from random import randrange, seed, randint
 from test_zombie import TestZombie
-from status import ZOMBIE_AREA, Season
+from status import ZOMBIE_AREA, Season, PLANT_AREA, GRID_SIZE
 from zombies.shigongjiangshi import ShiGongJiangShi
 from zombies.shachenbaojiangshi import ShaChenBaoJiangShi
 from zombies.xionghaizijiangshi import XiongHaiZiJiangShi
 from zombies.lanjiaojiangshi import LanJiaoJiangShi
+from zombies.wacaijiangshi import WaCaiJiangShi
 from victory import VictoryChecker
 
 class ZombieSpawner:
@@ -37,10 +38,10 @@ class ZombieSpawner:
                 case Season.SUMMER:
                     return "xionghaizijiangshi"
                 case Season.AUTUMN:
-                    # return "toucaijiangshi"
-                    return "shigongjiangshi"
+                    return "wacaijiangshi"
                 case Season.WINTER:
-                    return "lanjiaojiangshi"
+                    return "wacaijiangshi"
+                    # return "lanjiaojiangshi"
 
     def excute(self, status, event):
         if (status.global_ticks - self.start_tick) % self.wait == 0:
@@ -104,6 +105,18 @@ class ZombieSpawner:
                         tick=status.global_ticks,
                         life=status.zombie_configs[zombie_name]["life"],
                         item_name=item_name,
+                    )
+                case "wacaijiangshi":
+                    aim = [randint(0, 8), randint(0, 4)]
+                    posx = PLANT_AREA.left + (aim[0] * 2 + 1) * GRID_SIZE[0] / 2
+                    z = WaCaiJiangShi(
+                        pos=[posx, -60],
+                        json_path=status.zombie_configs[zombie_name]["json_path"],
+                        name=item_name,
+                        tick=status.global_ticks,
+                        life=status.zombie_configs[zombie_name]["life"],
+                        item_name=item_name,
+                        aim=aim
                     )
                 case _:
                     z = TestZombie(
