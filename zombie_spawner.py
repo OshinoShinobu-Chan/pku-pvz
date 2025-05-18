@@ -29,14 +29,12 @@ class ZombieSpawner:
         r = randint(0, 7)
         if r % 7 <= 3:
             self.plan -= 1
-            return "wacaijiangshi"
-            # return "shigongjiangshi"
+            return "shigongjiangshi"
         else:
             self.plan -= 2
             match status.season:
                 case Season.SPRING:
-                    return "wacaijiangshi"
-                    # return "shachenbaojiangshi"
+                    return "shachenbaojiangshi"
                 case Season.SUMMER:
                     return "xionghaizijiangshi"
                 case Season.AUTUMN:
@@ -148,7 +146,7 @@ class ZombieChecker:
                 status.executors.append(VictoryChecker())
                 return False
             status.executors.append(ZombieSpawner(status.global_ticks, status.zombie_round))
-            if status.zombie_round == 0:
+            if status.zombie_round == 3:
                 from game import GameBackground
                 status.executors.append(GameBackground())
                 status.season = Season.SPRING

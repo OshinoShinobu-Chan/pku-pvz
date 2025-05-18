@@ -1,16 +1,8 @@
 {
-    "zhonghuaxiaokumai": {
-        "name": "zhonghuaxiaokumai",
-        "description": "中华小苦荬",
-        "json_path": "./configs/plant_cards/zhonghuaxiaokumai.json",
-        "cold_time": 6,
-        "sun": 25,
-        "life": 300
-    },
     "baojingxiaokumai": {
         "name": "baojingxiaokumai",
-        "description": "抱茎小苦荬",
-        "json_path": "./configs/plant_cards/baojingxiaokumai.json",
+        "description": "中华小苦荬",
+        "json_path": "./configs/plant_cards/zhonghuaxiaokumai.json",
         "cold_time": 6,
         "sun": 50,
         "life": 300
@@ -23,28 +15,12 @@
         "sun": 100,
         "life": 300
     },
-    "dongqingweimao": {
-        "name": "dongqingweimao",
-        "description": "冬青卫矛",
-        "json_path": "./configs/plant_cards/dongqingweimao.json",
-        "cold_time": 30,
-        "sun": 150,
-        "life": 4000
-    },
     "dihuang": {
         "name": "dihuang",
         "description": "地黄",
         "json_path": "./configs/plant_cards/dihuang.json",
         "cold_time": 20,
         "sun": 25,
-        "life": 300
-    },
-    "banzhongcao": {
-        "name": "banzhongcao",
-        "description": "斑种草",
-        "json_path": "./configs/plant_cards/banzhongcao.json",
-        "cold_time": 50,
-        "sun": 150,
         "life": 300
     },
     "huangcimei": {

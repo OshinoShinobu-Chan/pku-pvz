@@ -1,5 +1,5 @@
 {
-    "size": [50, 120],
+    "size": [80, 120],
     "image_paths": {
         "normal": "./resources/zombies/xionghaizijiangshi.png",
         "fake": "./resources/zombies/xionghaizijiangshi.png"
