@@ -2,7 +2,7 @@ import pygame
 from static import Static
 from text import Text
 import json
-from status import GamePhase
+from status import GamePhase, Season
 from random import randint
 from utils import resource_path
 from zombie_spawner import ZombieChecker
@@ -22,10 +22,27 @@ class GameBackground:
                     json_path=resource_path("./configs/statics/start_game_background.json"),
                     name="start-game-background"))
             case GamePhase.GAME:
-                status.backgrounds.append(Static(pos=[status.screen.get_width() / 2,
-                                                status.screen.get_height() / 2, 3],
-                    json_path=resource_path("./configs/statics/game_background.json"),
-                    name="game-background"))
+                match status.season: 
+                    case Season.SPRING:
+                        status.backgrounds.append(Static(pos=[status.screen.get_width() / 2,
+                                                        status.screen.get_height() / 2, 3],
+                            json_path=resource_path("./configs/statics/spring.json"),
+                            name="game-background"))
+                    case Season.SUMMER:
+                        status.backgrounds.append(Static(pos=[status.screen.get_width() / 2,
+                                                        status.screen.get_height() / 2, 3],
+                            json_path=resource_path("./configs/statics/summer.json"),
+                            name="game-background"))
+                    case Season.AUTUMN:
+                        status.backgrounds.append(Static(pos=[status.screen.get_width() / 2,
+                                                        status.screen.get_height() / 2, 3],
+                            json_path=resource_path("./configs/statics/autumn.json"),
+                            name="game-background"))
+                    case Season.WINTER:
+                        status.backgrounds.append(Static(pos=[status.screen.get_width() / 2,
+                                                        status.screen.get_height() / 2, 3],
+                            json_path=resource_path("./configs/statics/winter.json"),
+                            name="game-background"))
         return False
 
 class GameStart:

@@ -37,7 +37,7 @@ class Victory:
             status.bullets = [[{} for _ in range(5)] for _ in range(9)]
             status.bullets_cnt = 0
             status.suanzao_aim = None
-            status.season = Season.SPRING
+            status.season = Season.WINTER
             status.victory = None
             from game import GameBackground
             status.executors.append(GameBackground())

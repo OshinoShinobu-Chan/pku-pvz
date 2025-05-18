@@ -29,12 +29,14 @@ class ZombieSpawner:
         r = randint(0, 7)
         if r % 7 <= 3:
             self.plan -= 1
-            return "shigongjiangshi"
+            return "wacaijiangshi"
+            # return "shigongjiangshi"
         else:
             self.plan -= 2
             match status.season:
                 case Season.SPRING:
-                    return "shachenbaojiangshi"
+                    return "wacaijiangshi"
+                    # return "shachenbaojiangshi"
                 case Season.SUMMER:
                     return "xionghaizijiangshi"
                 case Season.AUTUMN:
@@ -107,9 +109,10 @@ class ZombieSpawner:
                     )
                 case "wacaijiangshi":
                     aim = [randint(0, 8), randint(0, 4)]
+                    # aim = [4, 4]
                     posx = PLANT_AREA.left + (aim[0] * 2 + 1) * GRID_SIZE[0] / 2
                     z = WaCaiJiangShi(
-                        pos=[posx, -60],
+                        pos=[posx, -72],
                         json_path=status.zombie_configs[zombie_name]["json_path"],
                         name=item_name,
                         tick=status.global_ticks,
@@ -145,11 +148,17 @@ class ZombieChecker:
                 status.executors.append(VictoryChecker())
                 return False
             status.executors.append(ZombieSpawner(status.global_ticks, status.zombie_round))
-            if status.zombie_round == 3:
+            if status.zombie_round == 0:
+                from game import GameBackground
+                status.executors.append(GameBackground())
                 status.season = Season.SPRING
             elif status.zombie_round == 7:
+                from game import GameBackground
+                status.executors.append(GameBackground())
                 status.season = Season.SUMMER
             elif status.zombie_round == 11:
+                from game import GameBackground
+                status.executors.append(GameBackground())
                 status.season = Season.AUTUMN
             status.zombie_round += 1
             return False

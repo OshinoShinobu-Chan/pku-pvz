@@ -4,6 +4,7 @@ from status import PLANT_AREA, ZOMBIE_AREA, GRID_SIZE
 from plant import QIAO_MU
 from utils import resource_path, zombie_grid_to_plant_grid
 import pygame
+from math import sqrt
 
 class Rope(Item):
     def __init__(self, pos, json_path, name):
@@ -27,19 +28,17 @@ class static_plant(Item):
     def update(self, event, status):
         return True
 
-G = 0.2
+G = 0.1
 class WaCaiJiangShi(Zombie):
     def __init__(self, pos, json_path, name, tick, life, item_name, aim):
         super().__init__(pos, json_path, name, tick, life, item_name)
-        self.speed = 1
+        self.speed = 0
         self.float_pos = [self.pos[0], self.pos[1]]
         self.aimy = PLANT_AREA.top + (aim[1] * 2 + 1) * GRID_SIZE[1] / 2
-        print(aim)
         self.aim_top = PLANT_AREA.top + aim[1] * GRID_SIZE[1]
-        print(self.aim_top)
-        self.k = 2 * G / (self.aimy - 60)
+        self.k = 2 * G / (self.aimy + 72)
         self.is_attack = False
-        self.rope_name = "rope_" + str(pos)
+        self.rope_name = "rope_" + str(pos) + str(tick)
         self.has_rope = False
         self.bottom_index = [(self.rect.left - ZOMBIE_AREA.left) // GRID_SIZE[0],
                                 (self.rect.bottom - ZOMBIE_AREA.top) // GRID_SIZE[1]]
@@ -47,7 +46,7 @@ class WaCaiJiangShi(Zombie):
         self.has_aim_plant = False
 
     def move(self, status):
-        acc = G - self.k * self.pos[1]
+        acc = G - self.k * (self.rect.bottom)
         self.speed += acc
         self.remove(status)
         self.pos[1] += self.speed
@@ -78,7 +77,7 @@ class WaCaiJiangShi(Zombie):
             self.bottom_index = [(self.rect.left - ZOMBIE_AREA.left) // GRID_SIZE[0],
                                 (self.rect.bottom - ZOMBIE_AREA.top) // GRID_SIZE[1]]
             plant_index = zombie_grid_to_plant_grid(self.bottom_index)
-            print(f"real aim: {self.bottom_index}, bottom: {self.rect.bottom}")
+            print(f"{plant_index = }, {self.aim_top = }")
 
             if self.bottom_index[1] < 5:
                 status.zombies[self.bottom_index[0]][self.bottom_index[1]][self.item_name] = True
@@ -105,7 +104,8 @@ class WaCaiJiangShi(Zombie):
         if self.rect.bottom < self.aim_top and self.is_attack:
             self.remove(status)
 
-        if self.rect.bottom <= 5 and self.is_attack:
+        if (self.rect.bottom <= 0 or (self.rect.bottom < 120 and self.speed >= 0))\
+            and self.is_attack:
             self.remove(status)
             if self.has_aim_plant:
                 del status.items[5][self.aim_plant_name]
@@ -118,7 +118,7 @@ class WaCaiJiangShi(Zombie):
         if self.rect.top <= 0 and not self.has_rope:
             self.has_rope = True
             status.items[5][self.rope_name] = Rope(
-                pos=[self.rect.centerx, -470],
+                pos=[self.rect.centerx, -490],
                 json_path=resource_path("./configs/statics/rope.json"),
                 name="rope"
             )

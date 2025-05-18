@@ -95,7 +95,7 @@ class Button(Item):
         super().__init__(pos, json_path, name)
         with open(resource_path(json_path), "r") as f:
             config = json.load(f)
-        images = {k: pygame.image.load(resource_path(config["image_paths"][k])).convert() for k in config["image_paths"].keys()}
+        images = {k: pygame.image.load(resource_path(config["image_paths"][k])).convert_alpha() for k in config["image_paths"].keys()}
         self.images = {k: pygame.transform.smoothscale(images[k], self.size) for k in images.keys()}
         self.on_click = on_click
         self.on_focus = on_focus
